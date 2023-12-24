@@ -1,44 +1,25 @@
-# action-composite-template
+# reviewdog-action-biome
 
-<!-- TODO: replace reviewdog/action-composite-template with your repo name -->
-[![Test](https://github.com/reviewdog/action-composite-template/workflows/Test/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3ATest)
-[![reviewdog](https://github.com/reviewdog/action-composite-template/workflows/reviewdog/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Areviewdog)
-[![depup](https://github.com/reviewdog/action-composite-template/workflows/depup/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Adepup)
-[![release](https://github.com/reviewdog/action-composite-template/workflows/release/badge.svg)](https://github.com/reviewdog/action-composite-template/actions?query=workflow%3Arelease)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/reviewdog/action-composite-template?logo=github&sort=semver)](https://github.com/reviewdog/action-composite-template/releases)
-[![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
+This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve code review experience.
 
-![github-pr-review demo](https://user-images.githubusercontent.com/3797062/73162963-4b8e2b00-4132-11ea-9a3f-f9c6f624c79f.png)
-![github-pr-check demo](https://user-images.githubusercontent.com/3797062/73163032-70829e00-4132-11ea-8481-f213a37db354.png)
-
-<!-- TODO: outline your action here -->
-This is a template repository for
-[reviewdog](https://github.com/reviewdog/reviewdog) action with release
-automation based on [action composition](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action).
-Click `Use this template` button to create your reviewdog action :dog:!
-
-If you want to create your own reviewdog action from scratch without using this
-template, please check and copy release automation flow.
-It's important to manage release workflow and sync reviewdog version for all
-reviewdog actions.
-
-This repo contains a sample action to run [misspell](https://github.com/client9/misspell).
 
 ## Input
 
-<!-- TODO: replace `<linter-name>` with yours -->
 ```yaml
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
     default: '${{ github.token }}'
   workdir:
-    description: 'Working directory relative to the root directory.'
+    description: |
+      Working directory relative to the root directory.
+      This is where the action will look for a package.json file which declares Biome as a dependency.
+      Please note that this is different from the directory where the action will run Biome, which is specified in the biome_flags input.
     default: '.'
   ### Flags for reviewdog ###
   tool_name:
     description: 'Tool name to use for reviewdog reporter.'
-    default: '<linter-name>'
+    default: 'Biome'
   level:
     description: 'Report level for reviewdog [info,warning,error].'
     default: 'error'
@@ -58,26 +39,24 @@ inputs:
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
     default: ''
-  ### Flags for <linter-name> ###
-  locale:
-    description: '-locale flag of misspell. (US/UK)'
-    default: ''
+  ### Flags for Biome ###
+  biome_flags:
+    description: 'Flags and args for Biome command.'
+    default: '.'
 ```
 
 ## Usage
-<!-- TODO: replace reviewdog/action-composite-template with your repo name -->
 
 ```yaml
 name: reviewdog
 on: [pull_request]
 jobs:
-  # TODO: replace `linter_name` and `<linter-name>` with yours
   linter_name:
-    name: runner / <linter-name>
+    name: runner / Biome
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-composite-template@v1
+      - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}
           # Change reviewdog reporter if you need [github-check,github-pr-review,github-pr-check].

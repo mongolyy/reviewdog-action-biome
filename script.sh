@@ -7,16 +7,25 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-echo '::group::🐶 Installing misspell ... https://github.com/client9/misspell'
-TEMP_PATH="$(mktemp -d)"
-PATH="${TEMP_PATH}:$PATH"
-wget -O - -q https://git.io/misspell | sh -s -- -b "${TEMP_PATH}"
-echo '::endgroup::'
+npx --no-install -c 'biome --version'
+if [ $? -ne 0 ]; then
+  echo '::group::🐶 Installing biome...'
+  npm install
+  echo '::endgroup::'
+fi
 
-echo '::group:: Running misspell with reviewdog 🐶 ...'
-# shellcheck disable=SC2086
-misspell -locale="${INPUT_LOCALE}" . |
-  reviewdog -efm="%f:%l:%c: %m" \
+echo "biome version:$(npx --noinstall -c 'biome --version')}"
+
+echo '::group:: Running biome with reviewdog 🐶 ...'
+biome ci "${INPUT_BIOME_FLAGS}" |
+  reviewdog \
+    -efm="%E%f:%l:%c %m ━%r" \
+    -efm="%C" \
+    -efm="%Z  × %m" \
+    -efm="%E%f %m ━%r" \
+    -efm="%C" \
+    -efm="%Z  × %m" \
+    -efm="%-G%.%#" \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER}" \
     -filter-mode="${INPUT_FILTER_MODE}" \
