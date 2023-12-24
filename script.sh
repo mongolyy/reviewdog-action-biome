@@ -7,22 +7,35 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-echo '::group::🐶 Installing misspell ... https://github.com/client9/misspell'
-TEMP_PATH="$(mktemp -d)"
-PATH="${TEMP_PATH}:$PATH"
-wget -O - -q https://git.io/misspell | sh -s -- -b "${TEMP_PATH}"
-echo '::endgroup::'
+if [ ! -f "$(npm root)"/.bin/biome ]; then
+  echo '::group::🐶 Installing Biome...'
+  npm install
+  echo '::endgroup::'
+fi
 
-echo '::group:: Running misspell with reviewdog 🐶 ...'
-# shellcheck disable=SC2086
-misspell -locale="${INPUT_LOCALE}" . |
-  reviewdog -efm="%f:%l:%c: %m" \
+if [ ! -f "$(npm root)"/.bin/biome ]; then
+  echo "❌ Unable to locate or install Biome. Did you provide a workdir which contains a valid package.json?"
+  exit 1
+fi
+
+echo "Biome $("$(npm root)"/.bin/biome --version)"
+
+echo '::group:: Running Biome with reviewdog 🐶 ...'
+"$(npm root)"/.bin/biome ci "${INPUT_BIOME_FLAGS}" 2>&1 |
+  reviewdog \
+    -efm="%C" \
+    -efm="%-Gci ━%#" \
+    -efm="%E%f:%l:%c %.%#━" \
+    -efm="%Z  × %m" \
+    -efm="%E%f %m %.%#━" \
+    -efm="%Z  × %m" \
+    -efm="%-G%.%#" \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER}" \
     -filter-mode="${INPUT_FILTER_MODE}" \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS}
+    "${INPUT_REVIEWDOG_FLAGS}"
 exit_code=$?
 echo '::endgroup::'
 exit $exit_code
