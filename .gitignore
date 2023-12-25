@@ -1,3 +1,4 @@
 # Folders to ignore
 .vscode/
 .idea/
+node_modules/

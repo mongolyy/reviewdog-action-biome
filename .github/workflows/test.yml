@@ -10,11 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
+      - id: action-success-test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-check
+          level: error
+          workdir: ./testdata
+          biome_flags: ok
+      - id: action-failure-test
+        uses: ./
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-check
           level: info
+          workdir: ./testdata
+          biome_flags: error
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -22,12 +33,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
+      - id: action-success-test
+        uses: ./
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-check
-          level: warning
-          workdir: ./testdata/subdir/
+          level: error
+          workdir: ./testdata
+          biome_flags: ok
+      - id: action-failure-test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          level: info
+          workdir: ./testdata
+          biome_flags: error
 
   test-pr-review:
     if: github.event_name == 'pull_request'
@@ -35,14 +56,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./
-        continue-on-error: true
+      - id: action-success-test
+        uses: ./
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           level: error
-          filter_mode: file
-          fail_on_error: true
-      - name: check the exit code
-        if: ${{ !success() }}
-        run: echo 'The previous step should fail' && exit 1
+          workdir: ./testdata
+          biome_flags: ok
+      - id: action-failure-test
+        uses: ./
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-check
+          level: info
+          workdir: ./testdata
+          biome_flags: error

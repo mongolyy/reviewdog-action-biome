@@ -7,17 +7,21 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-npx --no-install -c 'biome --version'
-if [ $? -ne 0 ]; then
-  echo '::group::🐶 Installing biome...'
+if [ ! -f "$(npm root)"/.bin/biome ]; then
+  echo '::group::🐶 Installing Biome...'
   npm install
   echo '::endgroup::'
 fi
 
-echo "biome version:$(npx --noinstall -c 'biome --version')}"
+if [ ! -f "$(npm root)"/.bin/biome ]; then
+  echo "❌ Unable to locate or install Biome. Did you provide a workdir which contains a valid package.json?"
+  exit 1
+fi
 
-echo '::group:: Running biome with reviewdog 🐶 ...'
-biome ci "${INPUT_BIOME_FLAGS}" |
+echo "Biome $("$(npm root)"/.bin/biome --version)"
+
+echo '::group:: Running Biome with reviewdog 🐶 ...'
+"$(npm root)"/.bin/biome ci "${INPUT_BIOME_FLAGS}" |
   reviewdog \
     -efm="%E%f:%l:%c %m ━%r" \
     -efm="%C" \
