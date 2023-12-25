@@ -11,21 +11,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: action-success-test
+        name: action-success-test
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
+          workdir: ./testdata
           reporter: github-check
           level: error
-          workdir: ./testdata
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: ok
       - id: action-failure-test
+        name: action-failure-test
         uses: ./
+        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
+          workdir: ./testdata
           reporter: github-check
           level: info
-          workdir: ./testdata
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: error
+      - name: check-failure
+        if: steps.action-failure-test.outcome == 'success'
+        run: exit 1
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -34,21 +44,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: action-success-test
+        name: action-success-test
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
+          workdir: ./testdata
           reporter: github-pr-check
           level: error
-          workdir: ./testdata
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: ok
       - id: action-failure-test
+        name: action-failure-test
         uses: ./
+        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
+          workdir: ./testdata
           reporter: github-pr-check
           level: info
-          workdir: ./testdata
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: error
+      - name: check-failure
+        if: steps.action-failure-test.outcome == 'success'
+        run: exit 1
 
   test-pr-review:
     if: github.event_name == 'pull_request'
@@ -57,18 +77,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: action-success-test
+        name: action-success-test
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
+          workdir: ./testdata
           reporter: github-pr-review
           level: error
-          workdir: ./testdata
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: ok
       - id: action-failure-test
+        name: action-failure-test
         uses: ./
+        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
-          reporter: github-pr-check
-          level: info
           workdir: ./testdata
+          reporter: github-pr-review
+          level: info
+          filter_mode: nofilter
+          fail_on_error: true
           biome_flags: error
+      - name: check-failure
+        if: steps.action-failure-test.outcome == 'success'
+        run: exit 1

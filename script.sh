@@ -21,13 +21,13 @@ fi
 echo "Biome $("$(npm root)"/.bin/biome --version)"
 
 echo '::group:: Running Biome with reviewdog 🐶 ...'
-"$(npm root)"/.bin/biome ci "${INPUT_BIOME_FLAGS}" |
+"$(npm root)"/.bin/biome ci "${INPUT_BIOME_FLAGS}" 2>&1 |
   reviewdog \
-    -efm="%E%f:%l:%c %m ━%r" \
     -efm="%C" \
+    -efm="%-Gci ━%#" \
+    -efm="%E%f:%l:%c %.%#━" \
     -efm="%Z  × %m" \
-    -efm="%E%f %m ━%r" \
-    -efm="%C" \
+    -efm="%E%f %m %.%#━" \
     -efm="%Z  × %m" \
     -efm="%-G%.%#" \
     -name="${INPUT_TOOL_NAME}" \
@@ -35,7 +35,7 @@ echo '::group:: Running Biome with reviewdog 🐶 ...'
     -filter-mode="${INPUT_FILTER_MODE}" \
     -fail-on-error="${INPUT_FAIL_ON_ERROR}" \
     -level="${INPUT_LEVEL}" \
-    ${INPUT_REVIEWDOG_FLAGS}
+    "${INPUT_REVIEWDOG_FLAGS}"
 exit_code=$?
 echo '::endgroup::'
 exit $exit_code
