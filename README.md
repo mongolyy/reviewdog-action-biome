@@ -9,39 +9,48 @@ This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.c
 inputs:
   github_token:
     description: 'GITHUB_TOKEN'
+    required: true
     default: '${{ github.token }}'
   workdir:
     description: |
       Working directory relative to the root directory.
       This is where the action will look for a package.json file which declares Biome as a dependency.
       Please note that this is different from the directory where the action will run Biome, which is specified in the biome_flags input.
+    required: false
     default: '.'
   ### Flags for reviewdog ###
   tool_name:
     description: 'Tool name to use for reviewdog reporter.'
+    required: false
     default: 'Biome'
   level:
     description: 'Report level for reviewdog [info,warning,error].'
+    required: false
     default: 'error'
   reporter:
     description: 'Reporter of reviewdog command [github-check,github-pr-review,github-pr-check].'
-    default: 'github-check'
+    required: false
+    default: 'github-pr-review'
   filter_mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
       Default is added.
+    required: false
     default: 'added'
   fail_on_error:
     description: |
       Exit code for reviewdog when errors are found [true,false].
       Default is `false`.
+    required: false
     default: 'false'
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
+    required: false
     default: ''
   ### Flags for Biome ###
   biome_flags:
     description: 'Flags and args for Biome command.'
+    required: false
     default: '.'
 ```
 
@@ -51,19 +60,42 @@ inputs:
 name: reviewdog
 on: [pull_request]
 jobs:
-  linter_name:
+  biome:
     name: runner / Biome
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: mongolyy/reviewdog-action-biome@v1
+      - uses: mongolyy/reviewdog-action-biome@v0
         with:
           github_token: ${{ secrets.github_token }}
-          # Change reviewdog reporter if you need [github-check,github-pr-review,github-pr-check].
           reporter: github-pr-review
-          # Change reporter level if you need.
-          # GitHub Status Check won't become failure with warning.
-          level: warning
+```
+
+You can also set up node and Biome manually:
+
+```yaml
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - run: yarn install
+      - uses: reviewdog/action-biome@v0
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
 ```
 
 ## Development
