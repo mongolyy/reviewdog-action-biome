@@ -17,10 +17,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-check
-          level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok
+          biome_flags: ok/
       - id: action-failure-test
         name: action-failure-test
         uses: ./
@@ -29,10 +28,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-check
-          level: info
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error
+          biome_flags: error/
       - name: check-failure
         if: steps.action-failure-test.outcome == 'success'
         run: exit 1
@@ -50,10 +48,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-pr-check
-          level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok
+          biome_flags: ok/
       - id: action-failure-test
         name: action-failure-test
         uses: ./
@@ -62,10 +59,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-pr-check
-          level: info
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error
+          biome_flags: error/
       - name: check-failure
         if: steps.action-failure-test.outcome == 'success'
         run: exit 1
@@ -83,10 +79,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-pr-review
-          level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok
+          biome_flags: ok/
       - id: action-failure-test
         name: action-failure-test
         uses: ./
@@ -95,10 +90,9 @@ jobs:
           github_token: ${{ secrets.github_token }}
           workdir: ./testdata
           reporter: github-pr-review
-          level: info
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error
+          biome_flags: error/
       - name: check-failure
         if: steps.action-failure-test.outcome == 'success'
         run: exit 1
