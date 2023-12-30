@@ -39,6 +39,7 @@ jobs:
 
       # Create release
       - if: "steps.tag.outputs.value != ''"
+        continue-on-error: true
         env:
           TAG_NAME: ${{ steps.tag.outputs.value }}
           BODY: ${{ steps.bumpr.outputs.message }}
