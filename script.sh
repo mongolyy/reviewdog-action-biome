@@ -22,15 +22,16 @@ echo "Biome $("$(npm root)"/.bin/biome --version)"
 
 echo '::group:: Running Biome with reviewdog 🐶 ...'
 # shellcheck disable=SC2086
-"$(npm root)"/.bin/biome ci ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
+"$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
+  sed '/^$/d' |
   reviewdog \
+    -efm="%-G%f ci ━%#" \
+    -efm="%-G%f lint ━%#" \
     -efm="%-Gci ━%#" \
     -efm="%E%f:%l:%c %.%#" \
-    -efm="%C" \
-    -efm="%Z  × %m" \
     -efm="%E%f %.%#" \
-    -efm="%C" \
-    -efm="%Z  × %m" \
+    -efm="%C  × %m" \
+    -efm="%C  %m" \
     -efm="%-G%.%#" \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER}" \
