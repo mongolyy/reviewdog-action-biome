@@ -31,7 +31,7 @@ echo '::group:: Running Biome with reviewdog 🐶 ...'
     -efm="%E%f:%l:%c %.%#" \
     -efm="%E%f %.%#" \
     -efm="%C  × %m" \
-    -efm="%C  %m" \
+    -efm="%C %m" \
     -efm="%-G%.%#" \
     -name="${INPUT_TOOL_NAME}" \
     -reporter="${INPUT_REPORTER}" \
