@@ -27,7 +27,6 @@ echo '::group:: Running Biome with reviewdog 🐶 ...'
   sed -z 's/\n  \n\n/\n ```\n/g' |
   sed 's/^$/ ```/' |
   sed -z 's/```\n ```//g' |
-
   reviewdog \
     -efm="%-G%f ci ━%#" \
     -efm="%-G%f lint ━%#" \
