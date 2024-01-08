@@ -2,6 +2,7 @@
 
 This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve code review experience.
 
+![2024-01-08_00h04_56](https://github.com/mongolyy/reviewdog-action-biome/assets/10972787/6a6efde7-ed19-43ee-9382-389560dfa1ee)
 
 ## Input
 
