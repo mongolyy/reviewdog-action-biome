@@ -1,5 +1,12 @@
 # reviewdog-action-biome
 
+
+[![test](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test.yml)
+[![depup](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml)
+[![release](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mongolyy/reviewdog-action-biome?logo=github&sort=semver)](https://github.com/mongolyy/reviewdog-action-biome/releases)
+[![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
+
 This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve code review experience.
 
 ![sample-pr-review](./assets/readme/sample-pr-review.png)
