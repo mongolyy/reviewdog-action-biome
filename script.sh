@@ -23,10 +23,9 @@ echo "Biome $("$(npm root)"/.bin/biome --version)"
 echo '::group:: Running Biome with reviewdog 🐶 ...'
 # shellcheck disable=SC2016,SC2086
 "$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
-  sed -z 's/\n \( × [^\n]*\)\n  \n/\1\n ```\n/g' |
-  sed -z 's/\n  \n\n/\n ```\n/g' |
-  sed 's/^$/ ```/' |
-  sed -z 's/```\n ```//g' |
+  sed 's/ *$//' |
+  sed -z 's/\n\n\([^\n]*│[^\n]*\)/\n ```\n\1/g' |
+  sed -z 's/│\n\n/│\n ```\n/g' |
   reviewdog \
     -efm="%-G%f ci ━%#" \
     -efm="%-G%f lint ━%#" \
