@@ -9,7 +9,8 @@
 
 This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve code review experience.
 
-![sample-pr-review](./assets/readme/sample-pr-review.png)
+![sample-pr-review](assets/readme/sample-pr-review.png)
+![sample-commit-suggestion](assets/readme/sample-commit-suggestion.png)
 
 ## Input
 
