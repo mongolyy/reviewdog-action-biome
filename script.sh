@@ -21,9 +21,10 @@ fi
 echo "Biome $("$(npm root)"/.bin/biome --version)"
 
 echo '::group:: Running Biome with reviewdog 🐶 ...'
+tempfile=$(mktemp)
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/biome check --apply ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
+  "$(npm root)"/.bin/biome check --apply ${INPUT_BIOME_FLAGS} 2>&1 >$tempfile |
     sed 's/ *$//' |
     awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
     reviewdog \
@@ -44,7 +45,7 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
       ${INPUT_REVIEWDOG_FLAGS}
 else
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
+  "$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 >$tempfile |
     sed 's/ *$//' |
     awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
     reviewdog \
@@ -64,6 +65,7 @@ else
       -level="${INPUT_LEVEL}" \
       ${INPUT_REVIEWDOG_FLAGS}
 fi
+cat "$tempfile"
 
 exit_code=$?
 echo '::endgroup::'
