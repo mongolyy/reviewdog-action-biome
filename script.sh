@@ -24,6 +24,7 @@ echo '::group:: Running Biome with reviewdog 🐶 ...'
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
   # shellcheck disable=SC2086
   "$(npm root)"/.bin/biome check --apply ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
+    sed 's/ *$//' |
     awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
     reviewdog \
       -efm="%-G%f ci ━%#" \
