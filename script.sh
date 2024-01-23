@@ -24,9 +24,7 @@ echo '::group:: Running Biome with reviewdog 🐶 ...'
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
   # shellcheck disable=SC2086
   "$(npm root)"/.bin/biome check --apply ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
-    sed 's/ *$//' |
-    sed -z 's/\n\n\([^\n]*│\)/\n\n  ```\n\1/g' |
-    sed -z 's/\(│[^\n]*\)\n\n/\1\n  ```\n\n/g' |
+    awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
@@ -47,8 +45,7 @@ else
   # shellcheck disable=SC2086
   "$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
     sed 's/ *$//' |
-    sed -z 's/\n\n\([^\n]*│\)/\n\n  ```\n\1/g' |
-    sed -z 's/\(│[^\n]*\)\n\n/\1\n  ```\n\n/g' |
+    awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
