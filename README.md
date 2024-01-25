@@ -77,7 +77,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: mongolyy/reviewdog-action-biome@v0
+      - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
@@ -101,7 +101,7 @@ jobs:
         with:
           node-version: "20"
       - run: yarn install
-      - uses: reviewdog/action-biome@v0
+      - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
