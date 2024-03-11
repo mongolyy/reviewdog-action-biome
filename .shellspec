@@ -1,0 +1,3 @@
+--require spec_helper
+--default-path test/shellspec
+--helperdir test/shellspec
