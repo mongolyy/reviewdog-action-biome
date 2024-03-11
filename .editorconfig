@@ -1,3 +1,6 @@
 [*.sh]
 indent_size = 2
 indent_style = space
+
+[test/**/*.sh]
+ignore = true

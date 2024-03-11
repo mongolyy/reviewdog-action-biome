@@ -1,0 +1,232 @@
+testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × expected `,` but instead found `a`
+
+  ```
+  > 1 │ [a a, ++b, ] = test;
+      │    ^
+    2 │
+  ```
+
+  i Remove a
+
+testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Invalid assignment to `++b`
+
+  ```
+  > 1 │ [a a, ++b, ] = test;
+      │       ^^^
+    2 │
+  ```
+
+  i This expression cannot be assigned to
+
+testdata/error/js/lint.js lint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The file contains diagnostics that needs to be addressed.
+
+testdata/error/js/lint.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Format with errors is disabled.
+
+testdata/error/js/lint.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The file contains diagnostics that needs to be addressed.
+
+testdata/error/js/format.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × File content differs from formatting output
+
+  ```
+    1   │ - const·a·=·[2,2,1,3];
+      1 │ + const·a·=·[2,·2,·1,·3];
+    2 2 │
+  ```
+
+testdata/error/js/format.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The file contains diagnostics that needs to be addressed.
+
+testdata/error/ts/format.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × File content differs from formatting output
+
+  ```
+    1   │ - import·type·{
+    2   │ - ··A,
+    3   │ - }·from·'a';
+      1 │ + import·type·{·A·}·from·"a";
+    4 2 │   console.log("These two lines are not detected by diagnostics.");
+    5 3 │   console.log("Test for patterns when the last line of output by Biome isn't an empty line");
+  ```
+
+testdata/error/ts/format.ts ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The file contains diagnostics that needs to be addressed.
+
+testdata/error/js/format-truncate.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × File content differs from formatting output
+
+  ```
+     1  1 │   // truncate format result pattern
+     2    │ - console.log('This·line·is·detected·by·diagnostics.');
+     3    │ - console.log('This·line·is·detected·by·diagnostics.');
+     4    │ - console.log('This·line·is·detected·by·diagnostics.');
+     5    │ - console.log('This·line·is·detected·by·diagnostics.');
+     6    │ - console.log('This·line·is·detected·by·diagnostics.');
+     7    │ - console.log('This·line·is·detected·by·diagnostics.');
+     8    │ - console.log('This·line·is·detected·by·diagnostics.');
+     9    │ - console.log('This·line·is·detected·by·diagnostics.');
+    10    │ - console.log('This·line·is·detected·by·diagnostics.');
+    11    │ - console.log('This·line·is·detected·by·diagnostics.');
+    12    │ - console.log('This·line·is·detected·by·diagnostics.');
+    13    │ - console.log('This·line·is·detected·by·diagnostics.');
+    14    │ - console.log('This·line·is·detected·by·diagnostics.');
+    15    │ - console.log('This·line·is·detected·by·diagnostics.');
+    16    │ - console.log('This·line·is·detected·by·diagnostics.');
+    17    │ - console.log('This·line·is·detected·by·diagnostics.');
+    18    │ - console.log('This·line·is·detected·by·diagnostics.');
+    19    │ - console.log('This·line·is·detected·by·diagnostics.');
+    20    │ - console.log('This·line·is·detected·by·diagnostics.');
+    21    │ - console.log('This·line·is·detected·by·diagnostics.');
+    22    │ - console.log('This·line·is·detected·by·diagnostics.');
+    23    │ - console.log('This·line·is·detected·by·diagnostics.');
+    24    │ - console.log('This·line·is·detected·by·diagnostics.');
+    25    │ - console.log('This·line·is·detected·by·diagnostics.');
+    26    │ - console.log('This·line·is·detected·by·diagnostics.');
+    27    │ - console.log('This·line·is·detected·by·diagnostics.');
+    28    │ - console.log('This·line·is·detected·by·diagnostics.');
+    29    │ - console.log('This·line·is·detected·by·diagnostics.');
+    30    │ - console.log('This·line·is·detected·by·diagnostics.');
+    31    │ - console.log('This·line·is·detected·by·diagnostics.');
+    32    │ - console.log('This·line·is·detected·by·diagnostics.');
+    33    │ - console.log('This·line·is·detected·by·diagnostics.');
+    34    │ - console.log('This·line·is·detected·by·diagnostics.');
+    35    │ - console.log('This·line·is·detected·by·diagnostics.');
+    36    │ - console.log('This·line·is·detected·by·diagnostics.');
+    37    │ - console.log('This·line·is·detected·by·diagnostics.');
+    38    │ - console.log('This·line·is·detected·by·diagnostics.');
+    39    │ - console.log('This·line·is·detected·by·diagnostics.');
+    40    │ - console.log('This·line·is·detected·by·diagnostics.');
+    41    │ - console.log('This·line·is·detected·by·diagnostics.');
+    42    │ - console.log('This·line·is·detected·by·diagnostics.');
+    43    │ - console.log('This·line·is·detected·by·diagnostics.');
+    44    │ - console.log('This·line·is·detected·by·diagnostics.');
+    45    │ - console.log('This·line·is·detected·by·diagnostics.');
+    46    │ - console.log('This·line·is·detected·by·diagnostics.');
+    47    │ - console.log('This·line·is·detected·by·diagnostics.');
+    48    │ - console.log('This·line·is·detected·by·diagnostics.');
+    49    │ - console.log('This·line·is·detected·by·diagnostics.');
+    50    │ - console.log('This·line·is·detected·by·diagnostics.');
+    51    │ - console.log('This·line·is·detected·by·diagnostics.');
+    52    │ - console.log('This·line·is·detected·by·diagnostics.');
+    53    │ - console.log('This·line·is·detected·by·diagnostics.');
+    54    │ - console.log('This·line·is·detected·by·diagnostics.');
+    55    │ - console.log('This·line·is·detected·by·diagnostics.');
+    56    │ - console.log('This·line·is·detected·by·diagnostics.');
+    57    │ - console.log('This·line·is·detected·by·diagnostics.');
+    58    │ - console.log('This·line·is·detected·by·diagnostics.');
+    59    │ - console.log('This·line·is·detected·by·diagnostics.');
+    60    │ - console.log('This·line·is·detected·by·diagnostics.');
+    61    │ - console.log('This·line·is·detected·by·diagnostics.');
+    62    │ - console.log('This·line·is·detected·by·diagnostics.');
+    63    │ - console.log('This·line·is·detected·by·diagnostics.');
+    64    │ - console.log('This·line·is·detected·by·diagnostics.');
+    65    │ - console.log('This·line·is·detected·by·diagnostics.');
+    66    │ - console.log('This·line·is·detected·by·diagnostics.');
+    67    │ - console.log('This·line·is·detected·by·diagnostics.');
+    68    │ - console.log('This·line·is·detected·by·diagnostics.');
+    69    │ - console.log('This·line·is·detected·by·diagnostics.');
+    70    │ - console.log('This·line·is·detected·by·diagnostics.');
+    71    │ - console.log('This·line·is·detected·by·diagnostics.');
+    72    │ - console.log('This·line·is·detected·by·diagnostics.');
+    73    │ - console.log('This·line·is·detected·by·diagnostics.');
+    74    │ - console.log('This·line·is·detected·by·diagnostics.');
+    75    │ - console.log('This·line·is·detected·by·diagnostics.');
+    76    │ - console.log('This·line·is·detected·by·diagnostics.');
+        2 │ + console.log("This·line·is·detected·by·diagnostics.");
+        3 │ + console.log("This·line·is·detected·by·diagnostics.");
+        4 │ + console.log("This·line·is·detected·by·diagnostics.");
+        5 │ + console.log("This·line·is·detected·by·diagnostics.");
+        6 │ + console.log("This·line·is·detected·by·diagnostics.");
+        7 │ + console.log("This·line·is·detected·by·diagnostics.");
+        8 │ + console.log("This·line·is·detected·by·diagnostics.");
+        9 │ + console.log("This·line·is·detected·by·diagnostics.");
+       10 │ + console.log("This·line·is·detected·by·diagnostics.");
+       11 │ + console.log("This·line·is·detected·by·diagnostics.");
+       12 │ + console.log("This·line·is·detected·by·diagnostics.");
+       13 │ + console.log("This·line·is·detected·by·diagnostics.");
+       14 │ + console.log("This·line·is·detected·by·diagnostics.");
+       15 │ + console.log("This·line·is·detected·by·diagnostics.");
+       16 │ + console.log("This·line·is·detected·by·diagnostics.");
+       17 │ + console.log("This·line·is·detected·by·diagnostics.");
+       18 │ + console.log("This·line·is·detected·by·diagnostics.");
+       19 │ + console.log("This·line·is·detected·by·diagnostics.");
+       20 │ + console.log("This·line·is·detected·by·diagnostics.");
+       21 │ + console.log("This·line·is·detected·by·diagnostics.");
+       22 │ + console.log("This·line·is·detected·by·diagnostics.");
+       23 │ + console.log("This·line·is·detected·by·diagnostics.");
+       24 │ + console.log("This·line·is·detected·by·diagnostics.");
+       25 │ + console.log("This·line·is·detected·by·diagnostics.");
+       26 │ + console.log("This·line·is·detected·by·diagnostics.");
+       27 │ + console.log("This·line·is·detected·by·diagnostics.");
+       28 │ + console.log("This·line·is·detected·by·diagnostics.");
+       29 │ + console.log("This·line·is·detected·by·diagnostics.");
+       30 │ + console.log("This·line·is·detected·by·diagnostics.");
+       31 │ + console.log("This·line·is·detected·by·diagnostics.");
+       32 │ + console.log("This·line·is·detected·by·diagnostics.");
+       33 │ + console.log("This·line·is·detected·by·diagnostics.");
+       34 │ + console.log("This·line·is·detected·by·diagnostics.");
+       35 │ + console.log("This·line·is·detected·by·diagnostics.");
+       36 │ + console.log("This·line·is·detected·by·diagnostics.");
+       37 │ + console.log("This·line·is·detected·by·diagnostics.");
+       38 │ + console.log("This·line·is·detected·by·diagnostics.");
+       39 │ + console.log("This·line·is·detected·by·diagnostics.");
+       40 │ + console.log("This·line·is·detected·by·diagnostics.");
+       41 │ + console.log("This·line·is·detected·by·diagnostics.");
+       42 │ + console.log("This·line·is·detected·by·diagnostics.");
+       43 │ + console.log("This·line·is·detected·by·diagnostics.");
+       44 │ + console.log("This·line·is·detected·by·diagnostics.");
+       45 │ + console.log("This·line·is·detected·by·diagnostics.");
+       46 │ + console.log("This·line·is·detected·by·diagnostics.");
+       47 │ + console.log("This·line·is·detected·by·diagnostics.");
+       48 │ + console.log("This·line·is·detected·by·diagnostics.");
+       49 │ + console.log("This·line·is·detected·by·diagnostics.");
+       50 │ + console.log("This·line·is·detected·by·diagnostics.");
+       51 │ + console.log("This·line·is·detected·by·diagnostics.");
+       52 │ + console.log("This·line·is·detected·by·diagnostics.");
+       53 │ + console.log("This·line·is·detected·by·diagnostics.");
+       54 │ + console.log("This·line·is·detected·by·diagnostics.");
+       55 │ + console.log("This·line·is·detected·by·diagnostics.");
+       56 │ + console.log("This·line·is·detected·by·diagnostics.");
+       57 │ + console.log("This·line·is·detected·by·diagnostics.");
+       58 │ + console.log("This·line·is·detected·by·diagnostics.");
+       59 │ + console.log("This·line·is·detected·by·diagnostics.");
+       60 │ + console.log("This·line·is·detected·by·diagnostics.");
+       61 │ + console.log("This·line·is·detected·by·diagnostics.");
+       62 │ + console.log("This·line·is·detected·by·diagnostics.");
+       63 │ + console.log("This·line·is·detected·by·diagnostics.");
+       64 │ + console.log("This·line·is·detected·by·diagnostics.");
+       65 │ + console.log("This·line·is·detected·by·diagnostics.");
+       66 │ + console.log("This·line·is·detected·by·diagnostics.");
+       67 │ + console.log("This·line·is·detected·by·diagnostics.");
+       68 │ + console.log("This·line·is·detected·by·diagnostics.");
+       69 │ + console.log("This·line·is·detected·by·diagnostics.");
+       70 │ + console.log("This·line·is·detected·by·diagnostics.");
+       71 │ + console.log("This·line·is·detected·by·diagnostics.");
+       72 │ + console.log("This·line·is·detected·by·diagnostics.");
+       73 │ + console.log("This·line·is·detected·by·diagnostics.");
+       74 │ + console.log("This·line·is·detected·by·diagnostics.");
+       75 │ + console.log("This·line·is·detected·by·diagnostics.");
+  2 more lines truncated
+  ```
+
+testdata/error/js/format-truncate.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × The file contains diagnostics that needs to be addressed.
+
+ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.

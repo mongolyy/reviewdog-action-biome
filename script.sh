@@ -1,31 +1,20 @@
 #!/bin/sh
 set -e
 
+. lib/biome.sh
+
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit
 fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-if [ ! -f "$(npm root)"/.bin/biome ]; then
-  echo '::group::🐶 Installing Biome...'
-  npm install
-  echo '::endgroup::'
-fi
-
-if [ ! -f "$(npm root)"/.bin/biome ]; then
-  echo "❌ Unable to locate or install Biome. Did you provide a workdir which contains a valid package.json?"
-  exit 1
-fi
-
-echo "Biome $("$(npm root)"/.bin/biome --version)"
+install_biome
 
 echo '::group:: Running Biome with reviewdog 🐶 ...'
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/biome check --apply ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
-    sed 's/ *$//' |
-    awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
+  biome_check ${INPUT_BIOME_FLAGS} |
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
@@ -44,9 +33,7 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
       ${INPUT_REVIEWDOG_FLAGS}
 else
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/biome ci --max-diagnostics=30 ${INPUT_BIOME_FLAGS} 2>&1 1>/dev/null |
-    sed 's/ *$//' |
-    awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }' |
+  biome_ci ${INPUT_BIOME_FLAGS} |
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
