@@ -1,4 +1,4 @@
-name: test
+name: test github action
 on:
   push:
     branches:
@@ -14,24 +14,24 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-check
           level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok/
+          biome_flags: testdata/ok/
       # github-check test is judged to fail if an error occurs even if continue-on-error is set to true.
       # Therefore, the test for failure should also succeed by setting the report level to warning.
       - name: action-failure-test
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-check
           level: warning
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error/
+          biome_flags: testdata/error/
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -43,12 +43,12 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-pr-check
           level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok/
+          biome_flags: testdata/ok/
       # github-pr-check test is judged to fail if an error occurs even if continue-on-error is set to true.
       # Therefore, the test for failure should also succeed by setting the report level to warning.
       - name: action-failure-test
@@ -56,12 +56,12 @@ jobs:
         continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-pr-check
           level: warning
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error/
+          biome_flags: testdata/rror/
 
   test-pr-review:
     if: github.event_name == 'pull_request'
@@ -74,24 +74,24 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-pr-review
           level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: ok/
+          biome_flags: testdata/ok/
       - id: action-failure-test
         name: action-failure-test
         uses: ./
         continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
-          workdir: ./testdata
+          workdir: ./test
           reporter: github-pr-review
           level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: error/
+          biome_flags: testdata/error/
       - name: check-failure
         if: steps.action-failure-test.outcome == 'success'
         run: exit 1

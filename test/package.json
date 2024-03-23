@@ -1,10 +1,10 @@
 {
-  "name": "testdata",
+  "name": "test",
   "version": "1.0.0",
   "description": "Test data for the reviewdog-action-biome",
   "author": "mongolyy",
   "license": "MIT",
   "devDependencies": {
-    "@biomejs/biome": "^1.4.1"
+    "@biomejs/biome": "1.5.3"
   }
 }
