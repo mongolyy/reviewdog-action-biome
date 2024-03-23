@@ -1,0 +1,16 @@
+name: test shell script
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+jobs:
+  shellspec:
+    name: runner / Biome (github-check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install latest shellspec
+        run: curl -fsSL https://git.io/shellspec | sh -s -- --yes
+      - name: Run shellspec
+        run: shellspec
