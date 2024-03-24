@@ -8,6 +8,9 @@ jobs:
   test-check:
     name: runner / Biome (github-check)
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - name: action-success-test
