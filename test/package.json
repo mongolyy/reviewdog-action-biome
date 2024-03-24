@@ -5,6 +5,6 @@
   "author": "mongolyy",
   "license": "MIT",
   "devDependencies": {
-    "@biomejs/biome": "1.5.3"
+    "@biomejs/biome": "^1.6.2"
   }
 }
