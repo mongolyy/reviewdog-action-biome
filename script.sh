@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+SCRIPT_DIR=$(dirname "$0")
 
 . "${SCRIPT_DIR}/lib/biome.sh"
 
