@@ -1,7 +1,9 @@
 #!/bin/sh
 set -e
 
-. lib/biome.sh
+SCRIPT_DIR=$(cd $(dirname "$0") && pwd)
+
+. "${SCRIPT_DIR}/lib/biome.sh"
 
 if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}/${INPUT_WORKDIR}" || exit
