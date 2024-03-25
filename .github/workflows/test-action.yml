@@ -9,7 +9,7 @@ jobs:
     name: runner / Biome (github-check)
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: read
+      pull-requests: write
       checks: write
     steps:
       - uses: actions/checkout@v4
