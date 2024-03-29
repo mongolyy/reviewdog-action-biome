@@ -4,6 +4,9 @@ on:
     branches:
       - main
   pull_request:
+permissions:
+  pull-requests: read
+  checks: read
 jobs:
   test-check:
     name: runner / Biome (github-check)
@@ -20,18 +23,21 @@ jobs:
           filter_mode: nofilter
           fail_on_error: true
           biome_flags: testdata/ok/
-      # github-check test is judged to fail if an error occurs even if continue-on-error is set to true.
-      # Therefore, the test for failure should also succeed by setting the report level to warning.
-      - name: action-failure-test
+      - id: action-failure-test
+        name: action-failure-test
         uses: ./
+        continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
           workdir: ./test
           reporter: github-check
-          level: warning
+          level: error
           filter_mode: nofilter
           fail_on_error: true
           biome_flags: testdata/error/
+      - name: check-failure
+        if: steps.action-failure-test.outcome == 'success'
+        run: exit 1
 
   test-pr-check:
     if: github.event_name == 'pull_request'
@@ -49,19 +55,21 @@ jobs:
           filter_mode: nofilter
           fail_on_error: true
           biome_flags: testdata/ok/
-      # github-pr-check test is judged to fail if an error occurs even if continue-on-error is set to true.
-      # Therefore, the test for failure should also succeed by setting the report level to warning.
-      - name: action-failure-test
+      - id: action-failure-test
+        name: action-failure-test
         uses: ./
         continue-on-error: true
         with:
           github_token: ${{ secrets.github_token }}
           workdir: ./test
           reporter: github-pr-check
-          level: warning
+          level: error
           filter_mode: nofilter
           fail_on_error: true
-          biome_flags: testdata/rror/
+          biome_flags: testdata/error/
+      - name: check-failure
+        if: steps.action-failure-test.outcome == 'success'
+        run: exit 1
 
   test-pr-review:
     if: github.event_name == 'pull_request'
@@ -69,8 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - id: action-success-test
-        name: action-success-test
+      - name: action-success-test
         uses: ./
         with:
           github_token: ${{ secrets.github_token }}

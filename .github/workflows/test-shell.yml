@@ -6,7 +6,7 @@ on:
   pull_request:
 jobs:
   shellspec:
-    name: runner / Biome (github-check)
+    name: runner / ShellSpec
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
