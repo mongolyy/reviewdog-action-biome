@@ -4,15 +4,14 @@ on:
     branches:
       - main
   pull_request:
-permissions: read-all
+permissions:
+  pull-requests: read
+  checks: read
 jobs:
   test-check:
     name: runner / Biome (github-check)
     runs-on: ubuntu-latest
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-        with:
-          config: ${{ vars.PERMISSIONS_CONFIG }}
       - uses: actions/checkout@v4
       - name: action-success-test
         uses: ./
@@ -45,9 +44,6 @@ jobs:
     name: runner / Biome (github-pr-check)
     runs-on: ubuntu-latest
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-        with:
-          config: ${{ vars.PERMISSIONS_CONFIG }}
       - uses: actions/checkout@v4
       - name: action-success-test
         uses: ./
@@ -80,9 +76,6 @@ jobs:
     name: runner / Biome (github-pr-review)
     runs-on: ubuntu-latest
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-        with:
-          config: ${{ vars.PERMISSIONS_CONFIG }}
       - uses: actions/checkout@v4
       - name: action-success-test
         uses: ./
