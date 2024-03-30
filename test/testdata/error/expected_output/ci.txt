@@ -22,17 +22,33 @@ testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━�
 
   i This expression cannot be assigned to
 
-testdata/error/js/lint.js lint ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  × The file contains diagnostics that needs to be addressed.
+  × expected `,` but instead found `a`
+
+  ```
+  > 1 │ [a a, ++b, ] = test;
+      │    ^
+    2 │
+  ```
+
+  i Remove a
+
+testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Invalid assignment to `++b`
+
+  ```
+  > 1 │ [a a, ++b, ] = test;
+      │       ^^^
+    2 │
+  ```
+
+  i This expression cannot be assigned to
 
 testdata/error/js/lint.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  × Format with errors is disabled.
-
-testdata/error/js/lint.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × The file contains diagnostics that needs to be addressed.
+  × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
 
 testdata/error/js/format.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -43,10 +59,6 @@ testdata/error/js/format.js format ━━━━━━━━━━━━━━━
       1 │ + const·a·=·[2,·2,·1,·3];
     2 2 │
   ```
-
-testdata/error/js/format.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × The file contains diagnostics that needs to be addressed.
 
 testdata/error/ts/format.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -60,10 +72,6 @@ testdata/error/ts/format.ts format ━━━━━━━━━━━━━━━
     4 2 │   console.log("These two lines are not detected by diagnostics.");
     5 3 │   console.log("Test for patterns when the last line of output by Biome isn't an empty line");
   ```
-
-testdata/error/ts/format.ts ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × The file contains diagnostics that needs to be addressed.
 
 testdata/error/js/format-truncate.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -222,10 +230,6 @@ testdata/error/js/format-truncate.js format ━━━━━━━━━━━━
        75 │ + console.log("This·line·is·detected·by·diagnostics.");
   2 more lines truncated
   ```
-
-testdata/error/js/format-truncate.js ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × The file contains diagnostics that needs to be addressed.
 
 ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
