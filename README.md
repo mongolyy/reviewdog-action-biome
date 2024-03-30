@@ -1,7 +1,7 @@
 # reviewdog-action-biome
 
 
-[![test](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test.yml)
+[![test](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test-action.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test-action.yml)
 [![depup](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml)
 [![release](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mongolyy/reviewdog-action-biome?logo=github&sort=semver)](https://github.com/mongolyy/reviewdog-action-biome/releases)
