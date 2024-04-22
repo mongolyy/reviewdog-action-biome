@@ -52,7 +52,7 @@ runs:
   steps:
     - uses: reviewdog/action-setup@v1
       with:
-        reviewdog_version: v0.17.2
+        reviewdog_version: v0.17.4
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
       env:
