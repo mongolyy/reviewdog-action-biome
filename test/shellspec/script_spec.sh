@@ -2,7 +2,7 @@ Describe 'biome.sh'
   Include lib/biome.sh
   cd test || exit
 
-  # Undo changes made by `biome check --apply` command
+  # Undo changes made by `biome check --write` command
   setup() {
     cp -r testdata testdata_origin
   }
