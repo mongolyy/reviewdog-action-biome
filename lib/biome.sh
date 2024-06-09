@@ -43,7 +43,7 @@ biome_ci() {
     exit 1
   fi
   # shellcheck disable=SC2086
-  "$(npm root)"/.bin/biome ci --max-diagnostics=30 $1 2>&1 1>/dev/null |
+  "$(npm root)"/.bin/biome ci --colors=off --max-diagnostics=30 $1 2>&1 1>/dev/null |
     sed 's/ *$//' |
     awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }'
 }
