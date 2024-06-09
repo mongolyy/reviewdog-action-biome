@@ -45,6 +45,8 @@ biome_ci() {
   # shellcheck disable=SC2086
   "$(npm root)"/.bin/biome ci --max-diagnostics=30 $1 2>&1 1>/dev/null |
     sed 's/\x1B\[[0-9;]*[JKmsu]//g' |
+    sed 's/✖/×/g' |
+    sed 's/ℹ/i/g' |
     sed 's/ *$//' |
     awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }'
 }
