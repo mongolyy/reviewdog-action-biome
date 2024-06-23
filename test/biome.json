@@ -12,5 +12,10 @@
 	"formatter": {
 		"enabled": true,
 		"lineWidth": 100
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded"
+		}
 	}
 }
