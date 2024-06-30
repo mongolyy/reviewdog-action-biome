@@ -2,9 +2,6 @@
   "extends": [
     "config:base"
   ],
-  "labels": [
-    "bump:patch"
-  ],
   "ignorePaths": [
     "**/node_modules/**"
   ]
