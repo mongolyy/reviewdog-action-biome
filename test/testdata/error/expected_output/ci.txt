@@ -50,16 +50,6 @@ testdata/error/js/lint.js format ━━━━━━━━━━━━━━━�
 
   × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
 
-testdata/error/js/format.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × File content differs from formatting output
-
-  ```
-    1   │ - const·a·=·[2,2,1,3];
-      1 │ + const·a·=·[2,·2,·1,·3];
-    2 2 │
-  ```
-
 testdata/error/ts/format.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × File content differs from formatting output
