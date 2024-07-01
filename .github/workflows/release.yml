@@ -5,6 +5,7 @@ on:
       - main
     tags:
       - "v*.*.*"
+      - "!v*.*.*-*"
   pull_request:
     types:
       - labeled
