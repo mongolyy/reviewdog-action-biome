@@ -2,6 +2,16 @@ Describe 'biome.sh'
   Include lib/biome.sh
   cd test || exit
 
+  biome() {
+    npx @biomejs/biome "$@"
+  }
+
+  install_biome() {
+    npm install
+
+    echo "Biome $(biome --version)"
+  }
+
   # Undo changes made by `biome check --write` command
   setup() {
     cp -r testdata testdata_origin
@@ -12,13 +22,6 @@ Describe 'biome.sh'
   }
   BeforeEach 'setup'
   AfterEach 'cleanup'
-
-  Describe 'install_biome function'
-    It 'install biome'
-      When call install_biome
-      The output should include 'Biome Version: '
-    End
-  End
 
   Describe 'biome_check function'
     install_biome

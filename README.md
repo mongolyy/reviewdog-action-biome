@@ -65,25 +65,11 @@ inputs:
 
 ## Usage
 
-```yaml
-name: reviewdog
-on: [pull_request]
-jobs:
-  biome:
-    name: runner / Biome
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: mongolyy/reviewdog-action-biome@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          reporter: github-pr-review
-```
-
-You can also set up node and Biome manually:
+> [!NOTE]  
+> For users who used v1.5 or lower.  
+> This action uses biomejs/setup-biome from v1.6.0.  
+> This will set up the appropriate version of @biomejs/biome from the lockfiles.  
+> No need to [set up manually](https://github.com/mongolyy/reviewdog-action-biome/blob/v1.5.1/README.md#usage) anymore!
 
 ```yaml
 name: reviewdog
@@ -97,10 +83,6 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-      - run: yarn install
       - uses: mongolyy/reviewdog-action-biome@v1
         with:
           github_token: ${{ secrets.github_token }}

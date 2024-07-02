@@ -11,8 +11,6 @@ fi
 
 export REVIEWDOG_GITHUB_API_TOKEN="${INPUT_GITHUB_TOKEN}"
 
-install_biome
-
 echo '::group:: Running Biome with reviewdog 🐶 ...'
 if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
   # shellcheck disable=SC2086
