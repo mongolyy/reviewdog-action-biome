@@ -71,6 +71,8 @@ inputs:
 > This will set up the appropriate version of @biomejs/biome from the lockfiles.  
 > No need to [set up manually](https://github.com/mongolyy/reviewdog-action-biome/blob/v1.5.1/README.md#usage) anymore!
 
+This is an example of commenting on a pull request and failing CI when there are issues pointed out in Biome check.
+
 ```yaml
 name: reviewdog
 on: [pull_request]
@@ -87,6 +89,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+          fail_on_error: true
 ```
 
 ## Development
