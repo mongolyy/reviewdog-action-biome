@@ -57,7 +57,7 @@ runs:
         working-dir: ${{ inputs.workdir }}
     - uses: reviewdog/action-setup@v1.3.0
       with:
-        reviewdog_version: v0.18.1
+        reviewdog_version: v0.20.1
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
       env:
