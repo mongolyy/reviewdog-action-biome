@@ -5,7 +5,7 @@ on:
       - main
   pull_request:
 permissions:
-  pull-requests: read
+  pull-requests: write
   checks: read
 jobs:
   test-check:
