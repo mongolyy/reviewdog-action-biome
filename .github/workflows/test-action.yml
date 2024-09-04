@@ -96,7 +96,7 @@ jobs:
           workdir: ./test
           reporter: github-pr-review
           level: error
-          filter_mode: nofilter
+          filter_mode: diff_context
           fail_on_error: true
           biome_flags: testdata/error/
       - name: check-failure
