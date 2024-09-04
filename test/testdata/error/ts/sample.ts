@@ -1,1 +1,1 @@
-console.log('commit suggestion sample');
+console.log("commit suggestion sample");
