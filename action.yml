@@ -54,6 +54,7 @@ runs:
       uses: biomejs/setup-biome@v2.2.1
       with:
         token: ${{ inputs.github_token }}
+        version: ''
         working-dir: ${{ inputs.workdir }}
     - uses: reviewdog/action-setup@v1.3.0
       with:
