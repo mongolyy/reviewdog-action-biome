@@ -39,8 +39,10 @@ inputs:
   fail_on_error:
     description: |
       Exit code for reviewdog when errors are found [true,false].
+      Default is `false` (temporary solution for #79).
     deprecationMessage: Deprecated. Use `fail_level` instead.
     required: false
+    default: 'false'
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
     required: false
