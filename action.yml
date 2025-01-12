@@ -86,6 +86,7 @@ runs:
         tool_name: ${{ inputs.tool_name }}
         level: ${{ inputs.level }}
         filter_mode: ${{ inputs.filter_mode }}
+        fail_level: ${{ inputs.fail_level }}
         fail_on_error: ${{ inputs.fail_on_error }}
         reviewdog_flags: ${{ inputs.reviewdog_flags }}
 
