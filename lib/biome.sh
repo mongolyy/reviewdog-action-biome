@@ -8,7 +8,7 @@ biome_json_to_rdf() {
   fi
   
   # shellcheck disable=SC2086
-  biome ci --formatter json $1 2>/dev/null | jq -r '
+  biome ci --formatter json $1 2>&1 1>/dev/null | jq -r '
     .files[] | 
     select(.diagnostics != null) | 
     .diagnostics[] | 
