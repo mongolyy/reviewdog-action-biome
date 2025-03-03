@@ -37,7 +37,7 @@ inputs:
     required: false
     default: 'error'
   reporter:
-    description: 'Reporter of reviewdog command [github-check,github-pr-review,github-pr-check].'
+    description: 'Reporter of reviewdog command [github-check,github-pr-review,github-pr-check,github-pr-review-next].'
     required: false
     default: 'github-pr-review'
   filter_mode:
@@ -96,6 +96,40 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+          fail_on_error: true
+```
+
+### Using github-pr-review-next reporter
+
+> [!NOTE]
+> This is beta feature.
+
+This action supports the `github-pr-review-next` reporter, which uses [Reviewdog Diagnostic Format (RDFormat)](https://github.com/reviewdog/reviewdog?tab=readme-ov-file#reviewdog-diagnostic-format-rdformat) for better integration with reviewdog.
+
+When using `github-pr-review-next`:
+
+- This provides richer diagnostic information including:
+  - Create code suggestions with comments.
+    - `github-pr-review` only supports code suggestions.
+
+Example usage with `github-pr-review-next`:
+
+```yaml
+name: reviewdog
+on: [pull_request]
+jobs:
+  biome:
+    name: runner / Biome
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mongolyy/reviewdog-action-biome@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review-next
           fail_on_error: true
 ```
 

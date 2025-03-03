@@ -1,6 +1,46 @@
 #!/bin/sh
 set -e
 
+biome_json_to_rdf() {
+  if [ -z "$1" ]; then
+    echo "❌ biome_json_to_rdf requires at least one argument"
+    exit 1
+  fi
+  
+  # shellcheck disable=SC2086
+  biome ci --formatter json $1 2>/dev/null | jq -r '
+    .files[] | 
+    select(.diagnostics != null) | 
+    .diagnostics[] | 
+    {
+      message: .message,
+      location: {
+        path: .location.file,
+        range: {
+          start: {
+            line: .location.start.line,
+            column: .location.start.column
+          },
+          end: {
+            line: .location.end.line,
+            column: .location.end.column
+          }
+        }
+      },
+      severity: (
+        if .kind == "error" then "ERROR"
+        elif .kind == "warning" then "WARNING"
+        else "INFO"
+        end
+      ),
+      code: {
+        value: .name
+      },
+      original_output: .message
+    }
+  ' | jq -s '.' | jq '{diagnostics: .}'
+}
+
 biome_check() {
   if [ -z "$1" ]; then
     echo "❌ biome_check requires at least one argument"

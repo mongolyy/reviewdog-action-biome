@@ -32,6 +32,19 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
       ${INPUT_FAIL_ON_ERROR:+-fail-on-error="${INPUT_FAIL_ON_ERROR}"} \
       -level="${INPUT_LEVEL}" \
       ${INPUT_REVIEWDOG_FLAGS}
+elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
+  # Use RDFormat for github-pr-review-next
+  # shellcheck disable=SC2086
+  biome_json_to_rdf ${INPUT_BIOME_FLAGS} |
+    reviewdog \
+      -f=rdjson \
+      -name="${INPUT_TOOL_NAME}" \
+      -reporter="${INPUT_REPORTER}" \
+      -filter-mode="${INPUT_FILTER_MODE}" \
+      ${INPUT_FAIL_LEVEL:+-fail-level="${INPUT_FAIL_LEVEL}"} \
+      ${INPUT_FAIL_ON_ERROR:+-fail-on-error="${INPUT_FAIL_ON_ERROR}"} \
+      -level="${INPUT_LEVEL}" \
+      ${INPUT_REVIEWDOG_FLAGS}
 else
   # shellcheck disable=SC2086
   biome_ci ${INPUT_BIOME_FLAGS} |
