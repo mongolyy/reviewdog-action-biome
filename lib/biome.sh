@@ -2,16 +2,22 @@
 set -e
 
 biome_json_to_rdf() {
+  echo >&2 "=== biome_json_to_rdf start ==="
   if [ -z "$1" ]; then
     echo "❌ biome_json_to_rdf requires at least one argument"
     exit 1
   fi
-  
+
+  echo >&2 "=== biome ci 標準エラー出力 ==="
   # shellcheck disable=SC2086
-  biome ci --formatter json $1 2>&1 1>/dev/null | jq -r '
-    .files[] | 
-    select(.diagnostics != null) | 
-    .diagnostics[] | 
+  biome_ci_output=$(biome ci --reporter json $1 2>&1 1>/dev/null)
+  echo >&2 "$biome_ci_output"
+
+  echo >&2 "=== jq 処理1の結果 ==="
+  jq_result1=$(echo "$biome_ci_output" | jq -r '
+    .files[] |
+    select(.diagnostics != null) |
+    .diagnostics[] |
     {
       message: .message,
       location: {
@@ -38,7 +44,19 @@ biome_json_to_rdf() {
       },
       original_output: .message
     }
-  ' | jq -s '.' | jq '{diagnostics: .}'
+  ')
+  echo >&2 "$jq_result1"
+
+  echo >&2 "=== jq 処理2の結果 ==="
+  jq_result2=$(echo "$jq_result1" | jq -s '.')
+  echo >&2 "$jq_result2"
+
+  echo >&2 "=== jq 処理3の結果（最終出力） ==="
+  jq_result3=$(echo "$jq_result2" | jq '{diagnostics: .}')
+  echo >&2 "$jq_result3"
+
+  # 元の処理結果を返す
+  echo "$jq_result3"
 }
 
 biome_check() {
