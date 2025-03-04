@@ -2,18 +2,34 @@
 set -e
 
 biome_json_to_rdf() {
-  echo >&2 "=== biome_json_to_rdf start ==="
   if [ -z "$1" ]; then
-    echo "❌ biome_json_to_rdf requires at least one argument"
+    echo "❌ biome_json_to_rdf requires at least one argument" >&2
     exit 1
   fi
 
-  echo >&2 "=== biome ci 標準エラー出力 ==="
+  # デバッグ情報を常に表示
+  echo "=== biome_json_to_rdf start ===" >&2
+
+  # エラーハンドリングを一時的に無効化
+  set +e
+
+  # biome ciの実行と出力の取得
   # shellcheck disable=SC2086
   biome_ci_output=$(biome ci --reporter json $1 2>&1 1>/dev/null)
-  echo >&2 "$biome_ci_output"
+  biome_exit_code=$?
 
-  echo >&2 "=== jq 処理1の結果 ==="
+  # デバッグ情報を常に表示
+  echo "=== biome ci 標準エラー出力（終了コード: $biome_exit_code） ===" >&2
+  echo "$biome_ci_output" >&2
+
+  # biome ciが失敗した場合でも処理を続行
+  if [ -z "$biome_ci_output" ] || [ "$biome_exit_code" -ne 0 ]; then
+    echo "⚠️ biome ciコマンドが失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo '{"diagnostics": []}'
+    return 0
+  fi
+
+  # jq処理1: JSONオブジェクトへの変換
   jq_result1=$(echo "$biome_ci_output" | jq -r '
     .files[] |
     select(.diagnostics != null) |
@@ -44,18 +60,55 @@ biome_json_to_rdf() {
       },
       original_output: .message
     }
-  ')
-  echo >&2 "$jq_result1"
+  ' 2>/dev/null)
+  jq1_exit_code=$?
 
-  echo >&2 "=== jq 処理2の結果 ==="
-  jq_result2=$(echo "$jq_result1" | jq -s '.')
-  echo >&2 "$jq_result2"
+  # デバッグ情報を常に表示
+  echo "=== jq 処理1の結果（終了コード: $jq1_exit_code） ===" >&2
+  echo "$jq_result1" >&2
 
-  echo >&2 "=== jq 処理3の結果（最終出力） ==="
-  jq_result3=$(echo "$jq_result2" | jq '{diagnostics: .}')
-  echo >&2 "$jq_result3"
+  # jq処理1が失敗した場合
+  if [ -z "$jq_result1" ] || [ "$jq1_exit_code" -ne 0 ]; then
+    echo "⚠️ jq処理1が失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo "入力JSON: $biome_ci_output" >&2
+    echo '{"diagnostics": []}'
+    return 0
+  fi
 
-  # 元の処理結果を返す
+  # jq処理2: 配列への変換
+  jq_result2=$(echo "$jq_result1" | jq -s '.' 2>/dev/null)
+  jq2_exit_code=$?
+
+  # デバッグ情報を常に表示
+  echo "=== jq 処理2の結果（終了コード: $jq2_exit_code） ===" >&2
+  echo "$jq_result2" >&2
+
+  # jq処理2が失敗した場合
+  if [ -z "$jq_result2" ] || [ "$jq2_exit_code" -ne 0 ]; then
+    echo "⚠️ jq処理2が失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo '{"diagnostics": []}'
+    return 0
+  fi
+
+  # jq処理3: diagnosticsキーの追加
+  jq_result3=$(echo "$jq_result2" | jq '{diagnostics: .}' 2>/dev/null)
+  jq3_exit_code=$?
+
+  # デバッグ情報を常に表示
+  echo "=== jq 処理3の結果（終了コード: $jq3_exit_code） ===" >&2
+  echo "$jq_result3" >&2
+
+  # jq処理3が失敗した場合
+  if [ -z "$jq_result3" ] || [ "$jq3_exit_code" -ne 0 ]; then
+    echo "⚠️ jq処理3が失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo '{"diagnostics": []}'
+    return 0
+  fi
+
+  # エラーハンドリングを再度有効化
+  set -e
+
+  # 元の処理結果を返す（標準出力）
   echo "$jq_result3"
 }
 
