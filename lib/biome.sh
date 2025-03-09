@@ -3,12 +3,12 @@ set -e
 
 biome_json_to_rdf() {
   if [ -z "$1" ]; then
-    echo "❌ biome_json_to_rdf requires at least one argument" >&2
+    echo "❌ biome_json_to_rdf requires at least one argument"
     exit 1
   fi
 
   # デバッグ情報を常に表示
-  echo "=== biome_json_to_rdf start ===" >&2
+  echo "=== biome_json_to_rdf start ==="
 
   # エラーハンドリングを一時的に無効化
   set +e
@@ -19,12 +19,17 @@ biome_json_to_rdf() {
   biome_exit_code=$?
 
   # デバッグ情報を常に表示
-  echo "=== biome ci 標準エラー出力（終了コード: $biome_exit_code） ===" >&2
-  echo "$biome_ci_output" >&2
+  echo "=== biome ci 標準出力 ==="
+  biome_ci_stdout=$(biome ci --reporter json $1 2>/dev/null)
+  echo "$biome_ci_stdout"
+
+  # デバッグ情報を常に表示
+  echo "=== biome ci 標準エラー出力（終了コード: $biome_exit_code） ==="
+  echo "$biome_ci_output"
 
   # biome ciが失敗した場合でも処理を続行
   if [ -z "$biome_ci_output" ] || [ "$biome_exit_code" -ne 0 ]; then
-    echo "⚠️ biome ciコマンドが失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo "⚠️ biome ciコマンドが失敗したか、出力が空です。空のJSONを返します。"
     echo '{"diagnostics": []}'
     return 0
   fi
@@ -64,13 +69,13 @@ biome_json_to_rdf() {
   jq1_exit_code=$?
 
   # デバッグ情報を常に表示
-  echo "=== jq 処理1の結果（終了コード: $jq1_exit_code） ===" >&2
-  echo "$jq_result1" >&2
+  echo "=== jq 処理1の結果（終了コード: $jq1_exit_code） ==="
+  echo "$jq_result1"
 
   # jq処理1が失敗した場合
   if [ -z "$jq_result1" ] || [ "$jq1_exit_code" -ne 0 ]; then
-    echo "⚠️ jq処理1が失敗したか、出力が空です。空のJSONを返します。" >&2
-    echo "入力JSON: $biome_ci_output" >&2
+    echo "⚠️ jq処理1が失敗したか、出力が空です。空のJSONを返します。"
+    echo "入力JSON: $biome_ci_output"
     echo '{"diagnostics": []}'
     return 0
   fi
@@ -80,12 +85,12 @@ biome_json_to_rdf() {
   jq2_exit_code=$?
 
   # デバッグ情報を常に表示
-  echo "=== jq 処理2の結果（終了コード: $jq2_exit_code） ===" >&2
-  echo "$jq_result2" >&2
+  echo "=== jq 処理2の結果（終了コード: $jq2_exit_code） ==="
+  echo "$jq_result2"
 
   # jq処理2が失敗した場合
   if [ -z "$jq_result2" ] || [ "$jq2_exit_code" -ne 0 ]; then
-    echo "⚠️ jq処理2が失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo "⚠️ jq処理2が失敗したか、出力が空です。空のJSONを返します。"
     echo '{"diagnostics": []}'
     return 0
   fi
@@ -95,12 +100,12 @@ biome_json_to_rdf() {
   jq3_exit_code=$?
 
   # デバッグ情報を常に表示
-  echo "=== jq 処理3の結果（終了コード: $jq3_exit_code） ===" >&2
-  echo "$jq_result3" >&2
+  echo "=== jq 処理3の結果（終了コード: $jq3_exit_code） ==="
+  echo "$jq_result3"
 
   # jq処理3が失敗した場合
   if [ -z "$jq_result3" ] || [ "$jq3_exit_code" -ne 0 ]; then
-    echo "⚠️ jq処理3が失敗したか、出力が空です。空のJSONを返します。" >&2
+    echo "⚠️ jq処理3が失敗したか、出力が空です。空のJSONを返します。"
     echo '{"diagnostics": []}'
     return 0
   fi
