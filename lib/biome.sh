@@ -13,29 +13,13 @@ biome_json_to_rdf() {
   # エラーハンドリングを一時的に無効化
   set +e
 
-  # biome ciの実行と出力の取得
-  # shellcheck disable=SC2086
-  biome_ci_output=$(biome ci --reporter json $1 2>&1 1>/dev/null)
-  biome_exit_code=$?
-
   # デバッグ情報を常に表示
   echo "=== biome ci 標準出力 ==="
   biome_ci_stdout=$(biome ci --reporter json $1 2>/dev/null)
   echo "$biome_ci_stdout"
 
-  # デバッグ情報を常に表示
-  echo "=== biome ci 標準エラー出力（終了コード: $biome_exit_code） ==="
-  echo "$biome_ci_output"
-
-  # biome ciが失敗した場合でも処理を続行
-  if [ -z "$biome_ci_output" ] || [ "$biome_exit_code" -ne 0 ]; then
-    echo "⚠️ biome ciコマンドが失敗したか、出力が空です。空のJSONを返します。"
-    echo '{"diagnostics": []}'
-    return 0
-  fi
-
   # jq処理1: JSONオブジェクトへの変換
-  jq_result1=$(echo "$biome_ci_output" | jq -r '
+  jq_result1=$(echo "$biome_ci_stdout" | jq -r '
     .files[] |
     select(.diagnostics != null) |
     .diagnostics[] |
