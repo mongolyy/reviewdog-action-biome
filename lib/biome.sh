@@ -20,34 +20,32 @@ biome_json_to_rdf() {
 
   # jq処理1: JSONオブジェクトへの変換
   jq_result1=$(echo "$biome_ci_stdout" | jq -r '
-    .files[] |
-    select(.diagnostics != null) |
     .diagnostics[] |
     {
-      message: .message,
+      message: .description,
       location: {
-        path: .location.file,
+        path: (if .location.path.file != null then .location.path.file else "unknown" end),
         range: {
           start: {
-            line: .location.start.line,
-            column: .location.start.column
+            line: (if .location.span != null then .location.span[0] else 1 end),
+            column: (if .location.span != null then .location.span[1] else 1 end)
           },
           end: {
-            line: .location.end.line,
-            column: .location.end.column
+            line: (if .location.span != null then .location.span[0] else 1 end),
+            column: (if .location.span != null then .location.span[1] else 1 end)
           }
         }
       },
       severity: (
-        if .kind == "error" then "ERROR"
-        elif .kind == "warning" then "WARNING"
+        if .severity == "error" then "ERROR"
+        elif .severity == "warning" then "WARNING"
         else "INFO"
         end
       ),
       code: {
-        value: .name
+        value: .category
       },
-      original_output: .message
+      original_output: .description
     }
   ' 2>/dev/null)
   jq1_exit_code=$?
