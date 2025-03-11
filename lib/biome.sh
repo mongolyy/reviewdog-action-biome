@@ -15,39 +15,13 @@ biome_json_to_rdf() {
 
   # デバッグ情報を常に表示
   echo "=== biome ci 標準出力 ==="
+  # 改行コードを確実に削除するために複数の方法を組み合わせる
   biome_ci_stdout=$(biome ci --reporter json $1 2>/dev/null)
+  # 改行なしで出力
   echo "$biome_ci_stdout"
 
   # jq処理1: JSONオブジェクトへの変換
-  jq_result1=$(echo "$biome_ci_stdout" | jq -r '
-    .diagnostics[] |
-    {
-      message: .description,
-      location: {
-        path: (if .location.path.file != null then .location.path.file else "unknown" end),
-        range: {
-          start: {
-            line: (if .location.span != null then .location.span[0] else 1 end),
-            column: (if .location.span != null then .location.span[1] else 1 end)
-          },
-          end: {
-            line: (if .location.span != null then .location.span[0] else 1 end),
-            column: (if .location.span != null then .location.span[1] else 1 end)
-          }
-        }
-      },
-      severity: (
-        if .severity == "error" then "ERROR"
-        elif .severity == "warning" then "WARNING"
-        else "INFO"
-        end
-      ),
-      code: {
-        value: .category
-      },
-      original_output: .description
-    }
-  ' 2>&1 1>/dev/null)
+  jq_result1=$(echo "$biome_ci_stdout" | tr -d '\n' | jq -r '.diagostics[]')
   jq1_exit_code=$?
 
   # デバッグ情報を常に表示
@@ -96,7 +70,7 @@ biome_json_to_rdf() {
   set -e
 
   # 元の処理結果を返す（標準出力）
-  echo "$jq_result3"
+  printf "%s" "$jq_result3"
 }
 
 biome_check() {
