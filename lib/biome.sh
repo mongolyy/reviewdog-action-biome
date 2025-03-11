@@ -47,7 +47,7 @@ biome_json_to_rdf() {
       },
       original_output: .description
     }
-  ' 2>/dev/null)
+  ' 2>&1 1>/dev/null)
   jq1_exit_code=$?
 
   # デバッグ情報を常に表示
