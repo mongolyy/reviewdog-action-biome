@@ -7,25 +7,12 @@ biome_json_to_rdf() {
     exit 1
   fi
 
-  # デバッグ情報を常に表示
-  echo "=== biome_json_to_rdf start ==="
-
   # エラーハンドリングを一時的に無効化
   set +e
 
-  # デバッグ情報を常に表示
-  echo "=== biome ci 標準出力 ==="
   # 改行コードを確実に削除するために複数の方法を組み合わせる
   biome_ci_stdout=$(biome ci --colors=off --reporter json $1 2>/dev/null)
-  # 改行なしで出力
 
-  biome ci --colors=off --reporter json $1 2>/dev/null > biome_ci_output.json
-  #cat biome_ci_output.json
-
-  #echo "jq debug"
-  #cat biome_ci_output.json | tr -d '[:cntrl:]' | jq -r '.diagnostics[]' 2>&1 || echo "Failed to parse JSON with jq"
-
-  echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
   jq_result1=$(echo "$biome_ci_stdout" | tr -d '[:cntrl:]' | jq -r '
     .diagnostics[] |
@@ -58,10 +45,6 @@ biome_json_to_rdf() {
   ')
   jq1_exit_code=$?
 
-  # デバッグ情報を常に表示
-  echo "=== jq 処理1の結果（終了コード: $jq1_exit_code） ==="
-  echo "$jq_result1"
-
   # jq処理1が失敗した場合
   if [ -z "$jq_result1" ] || [ "$jq1_exit_code" -ne 0 ]; then
     echo "⚠️ jq処理1が失敗したか、出力が空です。空のJSONを返します。"
@@ -74,10 +57,6 @@ biome_json_to_rdf() {
   jq_result2=$(echo "$jq_result1" | jq -s '.' 2>/dev/null)
   jq2_exit_code=$?
 
-  # デバッグ情報を常に表示
-  echo "=== jq 処理2の結果（終了コード: $jq2_exit_code） ==="
-  echo "$jq_result2"
-
   # jq処理2が失敗した場合
   if [ -z "$jq_result2" ] || [ "$jq2_exit_code" -ne 0 ]; then
     echo "⚠️ jq処理2が失敗したか、出力が空です。空のJSONを返します。"
@@ -88,10 +67,6 @@ biome_json_to_rdf() {
   # jq処理3: diagnosticsキーの追加
   jq_result3=$(echo "$jq_result2" | jq '{diagnostics: .}' 2>/dev/null)
   jq3_exit_code=$?
-
-  # デバッグ情報を常に表示
-  echo "=== jq 処理3の結果（終了コード: $jq3_exit_code） ==="
-  echo "$jq_result3"
 
   # jq処理3が失敗した場合
   if [ -z "$jq_result3" ] || [ "$jq3_exit_code" -ne 0 ]; then
