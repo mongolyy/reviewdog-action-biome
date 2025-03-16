@@ -21,7 +21,7 @@ biome_json_to_rdf() {
   echo "$biome_ci_stdout"
 
   echo "jq debug"
-  echo "$biome_ci_stdout" | jq -r '.diagostics[] | tostring' 2>&1 || echo "Failed to parse JSON with jq"
+  echo "$biome_ci_stdout" | jq -r 'tostring' 2>&1 || echo "Failed to parse JSON with jq"
 
   echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
