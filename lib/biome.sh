@@ -20,8 +20,40 @@ biome_json_to_rdf() {
   # 改行なしで出力
   echo "$biome_ci_stdout"
 
+  echo "jq debug"
+  echo "$biome_ci_stdout" | jq -r '.diagostics[] | tostring' 2>&1 || echo "Failed to parse JSON with jq"
+
+  echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
-  jq_result1=$(echo "$biome_ci_stdout" | tr -d '\n' | jq -r '.diagostics[]')
+  jq_result1=$(echo "$biome_ci_stdout" | jq -r '
+    .diagostics[] |
+    {
+      message: .descriptio,
+      location: {
+        path: (if .location.path.file != null then .location.path.file else "unknown" end),
+        range: {
+          start: {
+            line: (if .location.span != null then .location.span[0] else 1 end),
+            column: (if .location.span != null then .location.span[1] else 1 end)
+          },
+          end: {
+            line: (if .location.span != null then .location.span[0] else 1 end),
+            column: (if .location.span != null then .location.span[1] else 1 end)
+          }
+        }
+      },
+      severity: (
+        if .severity == "error" then "ERROR"
+        elif .severity == "warning" then "WARNING"
+        else "INFO"
+        end
+      ),
+      code: {
+        value: .category
+      },
+      original_output: .description
+    }
+  ' 2>&1 1>/dev/null)
   jq1_exit_code=$?
 
   # デバッグ情報を常に表示
