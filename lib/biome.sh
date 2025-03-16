@@ -18,10 +18,12 @@ biome_json_to_rdf() {
   # 改行コードを確実に削除するために複数の方法を組み合わせる
   biome_ci_stdout=$(biome ci --reporter json $1 2>/dev/null)
   # 改行なしで出力
-  echo "$biome_ci_stdout"
+
+  biome ci --reporter json $1 2>/dev/null > biome_ci_output.json
+  cat biome_ci_output.json
 
   echo "jq debug"
-  echo "$biome_ci_stdout" | jq -r 'tostring' 2>&1 || echo "Failed to parse JSON with jq"
+  cat biome_ci_output.json | jq -r 'tostring' 2>&1 || echo "Failed to parse JSON with jq"
 
   echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
