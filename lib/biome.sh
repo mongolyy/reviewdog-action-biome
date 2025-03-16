@@ -18,10 +18,10 @@ biome_json_to_rdf() {
   # デバッグ情報を常に表示
   echo "=== biome ci 標準出力 ==="
   # 改行コードを確実に削除するために複数の方法を組み合わせる
-  biome_ci_stdout=$(biome ci --reporter json $1 2>/dev/null)
+  biome_ci_stdout=$(biome ci --colors=off --reporter json $1 2>/dev/null)
   # 改行なしで出力
 
-  biome ci --reporter json $1 2>/dev/null > biome_ci_output.json
+  biome ci --colors=off --reporter json $1 2>/dev/null > biome_ci_output.json
   cat biome_ci_output.json
 
   echo "jq debug"
