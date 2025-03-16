@@ -20,17 +20,17 @@ biome_json_to_rdf() {
   # 改行なしで出力
 
   biome ci --colors=off --reporter json $1 2>/dev/null > biome_ci_output.json
-  cat biome_ci_output.json
+  #cat biome_ci_output.json
 
-  echo "jq debug"
-  cat biome_ci_output.json | tr -d '[:cntrl:]' | jq -r '.diagnostics[]' 2>&1 || echo "Failed to parse JSON with jq"
+  #echo "jq debug"
+  #cat biome_ci_output.json | tr -d '[:cntrl:]' | jq -r '.diagnostics[]' 2>&1 || echo "Failed to parse JSON with jq"
 
   echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
-  jq_result1=$(echo "$biome_ci_stdout" | jq -r '
-    .diagostics[] |
+  jq_result1=$(echo "$biome_ci_stdout" | tr -d '[:cntrl:]' | jq -r '
+    .diagnostics[] |
     {
-      message: .descriptio,
+      message: .description,
       location: {
         path: (if .location.path.file != null then .location.path.file else "unknown" end),
         range: {
