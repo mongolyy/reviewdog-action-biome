@@ -13,8 +13,6 @@ biome_json_to_rdf() {
   # エラーハンドリングを一時的に無効化
   set +e
 
-  echo '{"summary": "aa", "diagnostics":["Yamada"]}' | jq -r '.diagnostics[]'
-
   # デバッグ情報を常に表示
   echo "=== biome ci 標準出力 ==="
   # 改行コードを確実に削除するために複数の方法を組み合わせる
@@ -25,7 +23,7 @@ biome_json_to_rdf() {
   cat biome_ci_output.json
 
   echo "jq debug"
-  cat biome_ci_output.json | jq -R 'tostring' 2>&1 || echo "Failed to parse JSON with jq"
+  cat biome_ci_output.json | tr -d '[:cntrl:]' | jq -r '.diagnostics[]' 2>&1 || echo "Failed to parse JSON with jq"
 
   echo "=== jq処理 ==="
   # jq処理1: JSONオブジェクトへの変換
