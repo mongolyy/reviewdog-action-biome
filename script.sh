@@ -36,6 +36,7 @@ elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
   # shellcheck disable=SC2086
   biome_json_to_rdf ${INPUT_BIOME_FLAGS} |
     reviewdog \
+      -f=rdjson \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="github-pr-review" \
       -filter-mode="${INPUT_FILTER_MODE}" \
