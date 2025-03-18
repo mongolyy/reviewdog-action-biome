@@ -50,7 +50,7 @@ elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
       ${INPUT_FAIL_LEVEL:+-fail-level="${INPUT_FAIL_LEVEL}"} \
       ${INPUT_FAIL_ON_ERROR:+-fail-on-error="${INPUT_FAIL_ON_ERROR}"} \
       -level="${INPUT_LEVEL}" \
-      ${INPUT_REVIEWDOG_FLAGS}
+      ${INPUT_REVIEWDOG_FLAGS} 2>&1
 else
   # shellcheck disable=SC2086
   biome_ci ${INPUT_BIOME_FLAGS} |
