@@ -34,13 +34,14 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
       ${INPUT_REVIEWDOG_FLAGS}
 elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
   # Use RDFormat for github-pr-review-next
-  # shellcheck disable=SC2086
   echo "github-pr-review-next is started..."
+  # shellcheck disable=SC2086
   biome_output=$(biome_json_to_rdf ${INPUT_BIOME_FLAGS})
   echo "=== biome_json_to_rdf output ==="
   echo "$biome_output"
 
   echo "reviewdog is started..."
+  # shellcheck disable=SC2086
   echo "$biome_output" |
     reviewdog \
       -f=rdjson \
@@ -50,7 +51,7 @@ elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
       ${INPUT_FAIL_LEVEL:+-fail-level="${INPUT_FAIL_LEVEL}"} \
       ${INPUT_FAIL_ON_ERROR:+-fail-on-error="${INPUT_FAIL_ON_ERROR}"} \
       -level="${INPUT_LEVEL}" \
-      ${INPUT_REVIEWDOG_FLAGS} 2>&1
+      ${INPUT_REVIEWDOG_FLAGS}
 else
   # shellcheck disable=SC2086
   biome_ci ${INPUT_BIOME_FLAGS} |
