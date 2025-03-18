@@ -34,7 +34,6 @@ biome_json_to_rdf() {
       code: {
         value: .category
       },
-      original_output: .description,
       suggestions: (
         if .fix != null then
           [
