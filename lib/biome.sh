@@ -7,14 +7,8 @@ biome_json_to_rdf() {
     exit 1
   fi
 
-  # エラーハンドリングを一時的に無効化
-  set +e
-
-  # 改行コードを確実に削除するために複数の方法を組み合わせる
-  biome_ci_stdout=$(biome ci --colors=off --reporter json $1 2>/dev/null)
-
   # jq処理1: JSONオブジェクトへの変換
-  jq_result1=$(echo "$biome_ci_stdout" | tr -d '[:cntrl:]' | jq -r '
+  jq_result1=$(biome ci --colors=off --reporter json $1 2>/dev/null | tr -d '[:cntrl:]' | jq -r '
     .diagnostics[] |
     {
       message: .description,
