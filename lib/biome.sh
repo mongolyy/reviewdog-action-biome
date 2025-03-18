@@ -59,7 +59,7 @@ biome_json_to_rdf() {
   fi
 
   # jq処理3: diagnosticsキーの追加
-  jq_result3=$(echo "$jq_result2" | jq '{diagnostics: .}' 2>/dev/null)
+  jq_result3=$(echo "$jq_result2" | jq '{source: {name:"biome", url: "https://github.com/mongolyy/reviewdog-action-biome"}, diagnostics: .}' 2>/dev/null)
   jq3_exit_code=$?
 
   # jq処理3が失敗した場合
