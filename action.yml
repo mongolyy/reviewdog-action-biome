@@ -82,7 +82,7 @@ runs:
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BIOME_FLAGS: ${{ inputs.biome_flags }}
     - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
-      uses: reviewdog/action-suggester@v1.20.2
+      uses: reviewdog/action-suggester@v1.21.0
       with:
         github_token: ${{ inputs.github_token }}
         tool_name: ${{ inputs.tool_name }}
