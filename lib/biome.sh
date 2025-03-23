@@ -18,10 +18,6 @@ biome_json_to_rdf() {
           start: {
             line: (if .location.span != null then .location.span[0] else 1 end),
             column: (if .location.span != null then .location.span[1] else 1 end)
-          },
-          end: {
-            line: (if .location.span != null then .location.span[0] else 1 end),
-            column: (if .location.span != null then .location.span[1] else 1 end)
           }
         }
       },
@@ -43,10 +39,6 @@ biome_json_to_rdf() {
                 start: {
                   line: (if .location.span != null then .location.span[0] else 1 end),
                   column: (if .location.span != null then .location.span[1] else 1 end)
-                },
-                end: {
-                  line: (if .location.span != null then .location.span[0] else 1 end),
-                  column: (if .location.span != null then (.location.span[1] + (.problematicCode | length)) else 1 end)
                 }
               },
               text: (if .fix.edits[0].content != null then .fix.edits[0].content else "" end)
