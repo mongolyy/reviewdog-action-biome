@@ -58,7 +58,7 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Biome
-      uses: biomejs/setup-biome@v2.3.0
+      uses: biomejs/setup-biome@c016c38f26f2c4a6eb3662679143614a254263fd # v2.3.0
       with:
         token: ${{ inputs.github_token }}
         version: ''
@@ -82,7 +82,7 @@ runs:
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BIOME_FLAGS: ${{ inputs.biome_flags }}
     - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
-      uses: reviewdog/action-suggester@v1.21.0
+      uses: reviewdog/action-suggester@4747dbc9f9e37adba0943e681cc20db466642158 # v1.21.0
       with:
         github_token: ${{ inputs.github_token }}
         tool_name: ${{ inputs.tool_name }}
