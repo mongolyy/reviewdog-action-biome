@@ -81,7 +81,7 @@ runs:
         INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BIOME_FLAGS: ${{ inputs.biome_flags }}
-    - if: ${{ (inputs.reporter == 'github-pr-review' || inputs.reporter == 'github-pr-review-next') && always() }}
+    - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
       uses: reviewdog/action-suggester@v1.19.0
       with:
         github_token: ${{ inputs.github_token }}
