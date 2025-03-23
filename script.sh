@@ -45,13 +45,7 @@ elif [ "$INPUT_REPORTER" = "github-pr-review-next" ]; then
   echo "$biome_output" |
     reviewdog \
       -f=rdjson \
-      -name="${INPUT_TOOL_NAME}" \
-      -reporter="github-pr-review" \
-      -filter-mode="${INPUT_FILTER_MODE}" \
-      ${INPUT_FAIL_LEVEL:+-fail-level="${INPUT_FAIL_LEVEL}"} \
-      ${INPUT_FAIL_ON_ERROR:+-fail-on-error="${INPUT_FAIL_ON_ERROR}"} \
-      -level="${INPUT_LEVEL}" \
-      ${INPUT_REVIEWDOG_FLAGS}
+      -name="${INPUT_TOOL_NAME}"
 else
   # shellcheck disable=SC2086
   biome_ci ${INPUT_BIOME_FLAGS} |
