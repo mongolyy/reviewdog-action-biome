@@ -36,22 +36,43 @@ biome_json_to_rdf() {
       },
       original_output: .description,
       suggestions: (
-        if .fix != null then
-          [
-            {
-              range: {
-                start: {
-                  line: (if .location.span != null then .location.span[0] else 1 end),
-                  column: (if .location.span != null then .location.span[1] else 1 end)
+        # 現在のコンテキスト（診断情報）を変数に保存
+        . as $diag |
+        if $diag.advices != null and $diag.advices.advices != null then
+          # まずdiffを含むadviceを見つける
+          [$diag.advices.advices[] | select(.diff != null) | .diff] |
+          if length > 0 then
+            # diffが存在する場合は最初のdiffを使用
+            .[0] as $diff |
+            [
+              {
+                range: {
+                  start: {
+                    line: (if $diag.location.span != null then $diag.location.span[0] else 1 end),
+                    column: (if $diag.location.span != null then $diag.location.span[1] else 1 end)
+                  },
+                  end: {
+                    line: (if $diag.location.span != null then $diag.location.span[0] else 1 end),
+                    column: (if $diag.location.span != null then $diag.location.span[1] + 3 else 1 end)
+                  }
                 },
-                end: {
-                  line: (if .location.span != null then .location.span[0] else 1 end),
-                  column: (if .location.span != null then (.location.span[1] + (.problematicCode | length)) else 1 end)
-                }
-              },
-              text: (if .fix.edits[0].content != null then .fix.edits[0].content else "" end)
-            }
-          ]
+                # dictionaryから修正後のテキストを抽出する
+                text: (
+                  $diff |
+                  if .dictionary != null and .ops != null then
+                    # insertの操作からテキストを抽出
+                    (.ops[] | select(.diffOp.insert != null) | .diffOp.insert.range as $range |
+                     .dictionary[$range[0]:$range[1]]) // ""
+                  else
+                    # 適切な修正情報が抽出できない場合は空文字列
+                    ""
+                  end
+                )
+              }
+            ]
+          else
+            []
+          end
         else
           []
         end
