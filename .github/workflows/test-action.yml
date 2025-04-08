@@ -5,8 +5,10 @@ on:
       - main
   pull_request:
 permissions:
-  pull-requests: read
-  checks: read
+  pull-requests: write
+  contents: read
+  checks: write
+  issues: write
 jobs:
   test-check:
     name: runner / Biome (github-check)
