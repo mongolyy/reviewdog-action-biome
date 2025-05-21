@@ -18,12 +18,15 @@ if [ "$INPUT_REPORTER" = "github-pr-review" ]; then
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
+      -efm="%-G%f format ━%#" \
       -efm="%-Gci ━%#" \
+      -efm="%-Gcheck ━%#" \
       -efm="%E%f:%l:%c %.%#" \
       -efm="%E%f %.%#" \
       -efm="%C" \
       -efm="%C  × %m" \
       -efm="%C  %m" \
+      -efm="%C  i %m" \
       -efm="%-G%.%#" \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER}" \
@@ -38,12 +41,15 @@ else
     reviewdog \
       -efm="%-G%f ci ━%#" \
       -efm="%-G%f lint ━%#" \
+      -efm="%-G%f format ━%#" \
       -efm="%-Gci ━%#" \
+      -efm="%-Gcheck ━%#" \
       -efm="%E%f:%l:%c %.%#" \
       -efm="%E%f %.%#" \
       -efm="%C" \
       -efm="%C  × %m" \
       -efm="%C  %m" \
+      -efm="%C  i %m" \
       -efm="%-G%.%#" \
       -name="${INPUT_TOOL_NAME}" \
       -reporter="${INPUT_REPORTER}" \
