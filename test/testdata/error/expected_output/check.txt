@@ -1,3 +1,30 @@
+testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! This import is unused.
+
+  ```
+  > 1 │ import type {
+      │             ^
+  > 2 │   A,
+  > 3 │ } from 'a';
+      │ ^
+    4 │
+    5 │ console.log("These two lines are not detected by diagnostics.");
+  ```
+
+  i Unused imports might be the result of an incomplete refactoring.
+
+  i Unsafe fix: Remove the unused imports.
+
+  ```
+    1   │ - import·type·{
+    2   │ - ··A,
+    3   │ - }·from·'a';
+      1 │ +
+    4 2 │
+    5 3 │   console.log("These two lines are not detected by diagnostics.");
+  ```
+
 testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × expected `,` but instead found `a`
