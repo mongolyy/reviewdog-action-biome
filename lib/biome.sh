@@ -6,20 +6,10 @@ biome_check() {
     echo "❌ biome_check requires at least one argument"
     exit 1
   fi
-
-  biome_version=$(biome --version)
-  if awk -v ver="$biome_version" 'BEGIN { if (ver >= 1.8) exit 1; }'; then
-    # The following processes will be removed when biome 2.0.0 is released
-    # shellcheck disable=SC2086
-    biome check --colors=off --apply $1 2>&1 1>/dev/null |
-      sed 's/ *$//' |
-      awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }'
-  else
-    # shellcheck disable=SC2086
-    biome check --colors=off --write $1 2>&1 1>/dev/null |
-      sed 's/ *$//' |
-      awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }'
-  fi
+  # shellcheck disable=SC2086
+  biome check --colors=off --write $1 2>&1 1>/dev/null |
+    sed 's/ *$//' |
+    awk 'BEGIN { RS=""; ORS="\n\n" } { if (index($0, "│") > 0) { print "  ```\n" $0 "\n  ```" } else { print $0 } }'
 }
 
 biome_ci() {
