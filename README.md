@@ -1,11 +1,14 @@
 # reviewdog-action-biome
 
-
 [![test](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test-action.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/test-action.yml)
 [![depup](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/depup.yml)
 [![release](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml/badge.svg)](https://github.com/mongolyy/reviewdog-action-biome/actions/workflows/release.yml)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mongolyy/reviewdog-action-biome?logo=github&sort=semver)](https://github.com/mongolyy/reviewdog-action-biome/releases)
 [![action-bumpr supported](https://img.shields.io/badge/bumpr-supported-ff69b4?logo=github&link=https://github.com/haya14busa/action-bumpr)](https://github.com/haya14busa/action-bumpr)
+
+> [!IMPORTANT]  
+> This action supports Biome v2 and later.  
+> If you are using Biome v1, please use [reviewdog-action-biome@v1.13.0](https://github.com/mongolyy/reviewdog-action-biome/releases/tag/v1.13.0).
 
 This action runs [Biome](https://biomejs.dev/) with [reviewdog](https://github.com/reviewdog/reviewdog) on pull requests to improve code review experience.
 
@@ -73,7 +76,7 @@ inputs:
 ## Usage
 
 > [!NOTE]  
-> For users who used v1.5 or lower.  
+> For users who used reviewdog-action-biome@v1.5 or lower.  
 > This action uses biomejs/setup-biome from v1.6.0.  
 > This will set up the appropriate version of @biomejs/biome from the lockfiles.  
 > No need to [set up manually](https://github.com/mongolyy/reviewdog-action-biome/blob/v1.5.1/README.md#usage) anymore!
@@ -100,40 +103,6 @@ jobs:
 ```
 
 ## Development
-
-### Release
-
-#### [haya14busa/action-bumpr](https://github.com/haya14busa/action-bumpr)
-You can bump version on merging Pull Requests with specific labels (bump:major,bump:minor,bump:patch).
-Pushing tag manually by yourself also work.
-
-#### [haya14busa/action-update-semver](https://github.com/haya14busa/action-update-semver)
-
-This action updates major/minor release tags on a tag push. e.g. Update v1 and v1.2 tag when released v1.2.3.
-ref: https://help.github.com/en/articles/about-actions#versioning-your-action
-
-### Lint - reviewdog integration
-
-This reviewdog action itself is integrated with reviewdog to run lints
-which is useful for [action composition] based actions.
-
-[action composition]:https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-
-![reviewdog integration](https://user-images.githubusercontent.com/3797062/72735107-7fbb9600-3bde-11ea-8087-12af76e7ee6f.png)
-
-Supported linters:
-
-- [reviewdog/action-shellcheck](https://github.com/reviewdog/action-shellcheck)
-- [reviewdog/action-shfmt](https://github.com/reviewdog/action-shfmt)
-- [reviewdog/action-actionlint](https://github.com/reviewdog/action-actionlint)
-- [reviewdog/action-misspell](https://github.com/reviewdog/action-misspell)
-- [reviewdog/action-alex](https://github.com/reviewdog/action-alex)
-
-### Dependencies Update Automation
-This repository uses [reviewdog/action-depup](https://github.com/reviewdog/action-depup) to update
-reviewdog version.
-
-![reviewdog depup demo](https://user-images.githubusercontent.com/3797062/73154254-170e7500-411a-11ea-8211-912e9de7c936.png)
 
 ### Test
 
