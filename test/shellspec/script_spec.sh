@@ -14,6 +14,7 @@ Describe 'biome.sh'
 
   # Undo changes made by `biome check --write` command
   setup() {
+    stty cols 100 rows 24 2>/dev/null || true
     cp -r testdata testdata_origin
   }
   cleanup() {

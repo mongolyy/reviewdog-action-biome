@@ -29,13 +29,20 @@ inputs:
   filter_mode:
     description: |
       Filtering mode for the reviewdog command [added,diff_context,file,nofilter].
-      Default is added.
+      Default is `added`.
     required: false
     default: 'added'
+  fail_level:
+    description: |
+      If set to `none`, always use exit code 0 for reviewdog. Otherwise, exit code for reviewdog if it finds at least 1 issue with severity greater than or equal to the given level.
+      Possible values: [none,any,info,warning,error]
+    required: false
   fail_on_error:
     description: |
+      Deprecated, use `fail_level` instead.
       Exit code for reviewdog when errors are found [true,false].
       Default is `false`.
+    deprecationMessage: Deprecated. Use `fail_level` instead.
     required: false
     default: 'false'
   reviewdog_flags:
@@ -51,13 +58,14 @@ runs:
   using: 'composite'
   steps:
     - name: Setup Biome
-      uses: biomejs/setup-biome@v2.2.1
+      uses: biomejs/setup-biome@454fa0d884737805f48d7dc236c1761a0ac3cc13 # v2.6.0
       with:
         token: ${{ inputs.github_token }}
+        version: ''
         working-dir: ${{ inputs.workdir }}
-    - uses: reviewdog/action-setup@v1.3.0
+    - uses: reviewdog/action-setup@d8edfce3dd5e1ec6978745e801f9c50b5ef80252 # v1.4.0
       with:
-        reviewdog_version: v0.20.1
+        reviewdog_version: v0.21.0
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
       env:
@@ -69,16 +77,18 @@ runs:
         INPUT_LEVEL: ${{ inputs.level }}
         INPUT_REPORTER: ${{ inputs.reporter }}
         INPUT_FILTER_MODE: ${{ inputs.filter_mode }}
+        INPUT_FAIL_LEVEL: ${{ inputs.fail_level }}
         INPUT_FAIL_ON_ERROR: ${{ inputs.fail_on_error }}
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BIOME_FLAGS: ${{ inputs.biome_flags }}
     - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
-      uses: reviewdog/action-suggester@v1
+      uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff # v1.24.0
       with:
         github_token: ${{ inputs.github_token }}
         tool_name: ${{ inputs.tool_name }}
         level: ${{ inputs.level }}
         filter_mode: ${{ inputs.filter_mode }}
+        fail_level: ${{ inputs.fail_level }}
         fail_on_error: ${{ inputs.fail_on_error }}
         reviewdog_flags: ${{ inputs.reviewdog_flags }}
 
