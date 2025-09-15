@@ -63,9 +63,9 @@ runs:
         token: ${{ inputs.github_token }}
         version: ''
         working-dir: ${{ inputs.workdir }}
-    - uses: reviewdog/action-setup@e04ffabe3898a0af8d0fb1af00c188831c4b5893 # v1.3.2
+    - uses: reviewdog/action-setup@d8edfce3dd5e1ec6978745e801f9c50b5ef80252 # v1.4.0
       with:
-        reviewdog_version: v0.20.3
+        reviewdog_version: v0.21.0
     - run: $GITHUB_ACTION_PATH/script.sh
       shell: bash
       env:
@@ -82,7 +82,7 @@ runs:
         INPUT_REVIEWDOG_FLAGS: ${{ inputs.reviewdog_flags }}
         INPUT_BIOME_FLAGS: ${{ inputs.biome_flags }}
     - if: ${{ inputs.reporter == 'github-pr-review' && always() }}
-      uses: reviewdog/action-suggester@3d5391db5affb50a46eb4629e908a4e2c5dd20b2 # v1.22.0
+      uses: reviewdog/action-suggester@aa38384ceb608d00f84b4690cacc83a5aba307ff # v1.24.0
       with:
         github_token: ${{ inputs.github_token }}
         tool_name: ${{ inputs.tool_name }}
