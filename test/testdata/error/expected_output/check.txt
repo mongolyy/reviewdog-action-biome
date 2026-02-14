@@ -1,4 +1,4 @@
-testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\ts\format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━
 
   ! This import is unused.
 
@@ -20,12 +20,12 @@ testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━�
     1   │ - import·type·{
     2   │ - ··A,
     3   │ - }·from·'a';
-      1 │ +
+      1 │ + export·{}
     4 2 │
     5 3 │   console.log("These two lines are not detected by diagnostics.");
   ```
 
-testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\js\lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × expected `,` but instead found `a`
 
@@ -37,7 +37,7 @@ testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━�
 
   i Remove a
 
-testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\js\lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Invalid assignment to `++b`
 
@@ -49,7 +49,7 @@ testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━�
 
   i This expression cannot be assigned to
 
-testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\js\lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × expected `,` but instead found `a`
 
@@ -61,7 +61,7 @@ testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━�
 
   i Remove a
 
-testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\js\lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Invalid assignment to `++b`
 
@@ -73,10 +73,11 @@ testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━�
 
   i This expression cannot be assigned to
 
-testdata/error/js/lint.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ at testdata\error\js\lint.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
 
 check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Some errors were emitted while applying fixes.
+
