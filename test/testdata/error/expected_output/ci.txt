@@ -20,7 +20,7 @@ testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━�
     1   │ - import·type·{
     2   │ - ··A,
     3   │ - }·from·'a';
-      1 │ +
+      1 │ + export·{}
     4 2 │   console.log("These two lines are not detected by diagnostics.");
     5 3 │   console.log("Test for patterns when the last line of output by Biome isn't an empty line");
   ```
@@ -275,3 +275,4 @@ testdata/error/ts/format.ts format ━━━━━━━━━━━━━━━
 ci ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Some errors were emitted while running checks.
+

@@ -20,7 +20,7 @@ testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━�
     1   │ - import·type·{
     2   │ - ··A,
     3   │ - }·from·'a';
-      1 │ +
+      1 │ + export·{}
     4 2 │
     5 3 │   console.log("These two lines are not detected by diagnostics.");
   ```
@@ -80,3 +80,4 @@ testdata/error/js/lint.js format ━━━━━━━━━━━━━━━�
 check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Some errors were emitted while applying fixes.
+
