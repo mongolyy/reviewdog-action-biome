@@ -3,13 +3,10 @@ testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━�
   ! This import is unused.
 
   ```
-  > 1 │ import type {
-      │             ^
-  > 2 │   A,
-  > 3 │ } from 'a';
-      │ ^
-    4 │
-    5 │ console.log("These two lines are not detected by diagnostics.");
+  > 1 │ import type { A } from "a";
+      │             ^^^^^
+    2 │
+    3 │ console.log("These two lines are not detected by diagnostics.");
   ```
 
   i Unused imports might be the result of an incomplete refactoring.
@@ -17,37 +14,11 @@ testdata/error/ts/format.ts:1:13 lint/correctness/noUnusedImports  FIXABLE  ━�
   i Unsafe fix: Remove the unused imports.
 
   ```
-    1   │ - import·type·{
-    2   │ - ··A,
-    3   │ - }·from·'a';
+    1   │ - import·type·{·A·}·from·"a";
       1 │ + export·{}
-    4 2 │
-    5 3 │   console.log("These two lines are not detected by diagnostics.");
+    2 2 │
+    3 3 │   console.log("These two lines are not detected by diagnostics.");
   ```
-
-testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × expected `,` but instead found `a`
-
-  ```
-  > 1 │ [a a, ++b, ] = test;
-      │    ^
-    2 │
-  ```
-
-  i Remove a
-
-testdata/error/js/lint.js:1:7 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Invalid assignment to `++b`
-
-  ```
-  > 1 │ [a a, ++b, ] = test;
-      │       ^^^
-    2 │
-  ```
-
-  i This expression cannot be assigned to
 
 testdata/error/js/lint.js:1:4 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
