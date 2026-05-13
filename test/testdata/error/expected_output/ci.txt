@@ -211,21 +211,20 @@ testdata/error/js/lint.js format ━━━━━━━━━━━━━━━�
 
   × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
 
-testdata/error/ts/format.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+testdata/error/ts/format.ts:4:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  × The imports and exports are not sorted.
+  × This statement must be preceded by a blank line. Add a newline before this statement.
 
   ```
-  > 1 │ import type {
-      │ ^^^^^^^^^^^^^
-  > 2 │   A,
-  > 3 │ } from 'a';
-      │ ^^^^^^^^^^^
-    4 │ console.log("These two lines are not detected by diagnostics.");
+    2 │   A,
+    3 │ } from 'a';
+  > 4 │ console.log("These two lines are not detected by diagnostics.");
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     5 │ console.log("Test for patterns when the last line of output by Biome isn't an empty line");
+    6 │
   ```
 
-  i Safe fix: Organize Imports (Biome)
+  i Safe fix: Organize imports and exports (Biome)
 
   ```
     2 2 │     A,
