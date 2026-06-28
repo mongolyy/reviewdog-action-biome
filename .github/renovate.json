@@ -8,10 +8,20 @@
   ],
   "pinDigests": true,
   "minimumReleaseAge": "3 days",
+  "internalChecksFilter": "strict",
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "labels": [
       "security"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "description": "Bump versions in package.json instead of lockfile-only updates so minimumReleaseAge (3 days) is enforced. In-range update-lockfile updates bypass the stability check.",
+      "matchManagers": [
+        "npm"
+      ],
+      "rangeStrategy": "bump"
+    }
+  ]
 }
