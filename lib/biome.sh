@@ -16,7 +16,7 @@ biome_check() {
     echo "❌ biome_check requires at least one argument"
     exit 1
   fi
-  # shellcheck disable=SC2086
+  # shellcheck disable=SC2068,SC2086
   biome check --colors=off --write $@ 2>&1 1>/dev/null |
     sed 's/ *$//' |
     remove_biome_summary |
@@ -28,7 +28,7 @@ biome_ci() {
     echo "❌ biome_ci requires at least one argument"
     exit 1
   fi
-  # shellcheck disable=SC2086
+  # shellcheck disable=SC2068,SC2086
   biome ci --colors=off --max-diagnostics=30 $@ 2>&1 1>/dev/null |
     sed 's/\x1B\[[0-9;]*[JKmsu]//g' |
     sed 's/✖/×/g' |
