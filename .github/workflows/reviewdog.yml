@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: reviewdog/action-shfmt@c5e3ba7497c338866921924691aef4fa18bc1fe0 # v1.1.0
+      - uses: reviewdog/action-shfmt@737a5f5fb3410c487fdb8812a4e7f440b643f371 # v1.1.1
 
   actionlint:
     name: runner / actionlint
