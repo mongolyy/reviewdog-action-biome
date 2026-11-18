@@ -87,11 +87,7 @@ runs:
         tool_name: ${{ inputs.tool_name }}
         level: ${{ inputs.level }}
         filter_mode: ${{ inputs.filter_mode }}
-        # Do not forward fail_on_error. Presence of that key warns on
-        # action-suggester's deprecated input, and an empty value is passed
-        # through as `-fail-on-error=""` (invalid boolean, #79).
-        # reviewdog maps -fail-on-error to -fail-level=any for github-pr-review
-        # when fail_level is unset (cmd/reviewdog/main.go failLevel()).
+        # Map fail_on_error to fail_level instead of forwarding it (#86).
         fail_level: ${{ inputs.fail_level || (inputs.fail_on_error == 'true' && 'any') || 'none' }}
         reviewdog_flags: ${{ inputs.reviewdog_flags }}
 
