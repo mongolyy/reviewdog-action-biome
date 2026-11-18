@@ -87,7 +87,6 @@ runs:
         tool_name: ${{ inputs.tool_name }}
         level: ${{ inputs.level }}
         filter_mode: ${{ inputs.filter_mode }}
-        # Map fail_on_error to fail_level instead of forwarding it (#86).
         fail_level: ${{ inputs.fail_level || (inputs.fail_on_error == 'true' && 'any') || 'none' }}
         reviewdog_flags: ${{ inputs.reviewdog_flags }}
 
