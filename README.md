@@ -58,10 +58,9 @@ inputs:
     description: |
       Deprecated, use `fail_level` instead.
       Exit code for reviewdog when errors are found [true,false].
-      Default is `false`.
+      Kept for backward compatibility when explicitly set.
     deprecationMessage: Deprecated. Use `fail_level` instead.
     required: false
-    default: 'false'
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
     required: false
@@ -99,7 +98,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-          fail_on_error: true
+          fail_level: any
 ```
 
 ## Development
