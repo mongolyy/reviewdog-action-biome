@@ -41,10 +41,9 @@ inputs:
     description: |
       Deprecated, use `fail_level` instead.
       Exit code for reviewdog when errors are found [true,false].
-      Default is `false`.
+      Kept for backward compatibility when explicitly set.
     deprecationMessage: Deprecated. Use `fail_level` instead.
     required: false
-    default: 'false'
   reviewdog_flags:
     description: 'Additional reviewdog flags.'
     required: false
@@ -88,8 +87,7 @@ runs:
         tool_name: ${{ inputs.tool_name }}
         level: ${{ inputs.level }}
         filter_mode: ${{ inputs.filter_mode }}
-        fail_level: ${{ inputs.fail_level }}
-        fail_on_error: ${{ inputs.fail_on_error }}
+        fail_level: ${{ inputs.fail_level || (inputs.fail_on_error == 'true' && 'any') || 'none' }}
         reviewdog_flags: ${{ inputs.reviewdog_flags }}
 
 # Ref: https://haya14busa.github.io/github-action-brandings/

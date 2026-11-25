@@ -85,7 +85,7 @@ jobs:
           reporter: github-pr-review
           level: error
           filter_mode: nofilter
-          fail_on_error: true
+          fail_level: any
           biome_flags: testdata/ok/
       - id: action-failure-test
         name: action-failure-test
@@ -97,7 +97,7 @@ jobs:
           reporter: github-pr-review
           level: error
           filter_mode: nofilter
-          fail_on_error: true
+          fail_level: any
           biome_flags: testdata/error/
       - name: check-failure
         if: steps.action-failure-test.outcome == 'success'
